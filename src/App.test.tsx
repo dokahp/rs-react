@@ -1,31 +1,46 @@
 import { describe, it } from 'vitest';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-
-import { WrappedApp, App } from './App';
+import App from './App';
 
 describe('App', () => {
-  it('Renders hello world', () => {
-    // ARRANGE
-    render(<WrappedApp />);
-    // ACT
-    // EXPECT
-    expect(
-      screen.getByRole('heading', {
-        level: 1,
-      })
-    ).toHaveTextContent('Hello World');
+  it('It have search input', () => {
+    render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
+    const search = screen.getByPlaceholderText(/Enter for Search/i);
+    expect(search).toBeVisible();
   });
-  it('Renders not found if invalid path', () => {
+  it('It have navigation', () => {
+    render(
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    );
+    const nav = screen.getByRole('navigation');
+    expect(nav).toHaveClass('nav');
+  });
+});
+
+describe('NotFound', () => {
+  it('Not Found Route', () => {
     render(
       <MemoryRouter initialEntries={['/this-route-does-not-exist']}>
         <App />
       </MemoryRouter>
     );
-    expect(
-      screen.getByRole('heading', {
-        level: 1,
-      })
-    ).toHaveTextContent('Not Found');
+    const heading = screen.getByText(/^404$/);
+    expect(heading).toBeVisible();
+  });
+  it('It have navigation', () => {
+    render(
+      <MemoryRouter initialEntries={['/this-route-does-not-exist']}>
+        <App />
+      </MemoryRouter>
+    );
+    const nav = screen.getByRole('navigation');
+    expect(nav).toHaveClass('nav');
   });
 });
