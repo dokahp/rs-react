@@ -1,0 +1,25 @@
+.card-wrapper {
+  max-width: 100%;
+}
+.card-image {
+  max-width: 100%;
+}
+.title {
+  color: #f1f1f1;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  white-space: normal;
+  width: 90%;
+}
+.channel-title {
+  color: #aaaaaa;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 14px;
+}
+.published-at {
+  color: #aaaaaa;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 14px;
+}
