@@ -18,24 +18,32 @@ class Card extends React.PureComponent<Props, Snippet> {
 
     return (
       <div className="card-wrapper">
-        <img
-          src={thumbnails.high ? thumbnails.high.url : thumbnails.medium.url}
-          alt="video-title"
-          className="card-image"
-        />
-        <div className="title">
-          {title.length > 73 ? `${title.slice(0, 73)}...` : title}
-        </div>
-        <div className="channel-title">{channelTitle}</div>
-        <div className="published-at">
-          {new Date(publishedAt).toLocaleString('ru-Ru', {
-            second: undefined,
-            hour: 'numeric',
-            year: 'numeric',
-            month: '2-digit',
-            day: '2-digit',
-            minute: '2-digit',
-          })}
+        <div className="card">
+          <div className="card-image-wrapper">
+            <img
+              src={
+                thumbnails.high ? thumbnails.high.url : thumbnails.medium.url
+              }
+              alt="video-title"
+              className="card-image"
+            />
+          </div>
+          <div className="card-content-wrapper">
+            <div className="title">
+              {title.length > 73 ? `${title.slice(0, 73)}...` : title}
+            </div>
+            <div className="channel-title">{channelTitle}</div>
+            <div className="published-at">
+              {new Date(publishedAt).toLocaleString('ru-Ru', {
+                second: undefined,
+                hour: 'numeric',
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                minute: '2-digit',
+              })}
+            </div>
+          </div>
         </div>
       </div>
     );

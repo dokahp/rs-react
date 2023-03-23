@@ -15,6 +15,9 @@ class Header extends React.PureComponent {
             <li className="nav-list-item">
               <NavLink to="/about">About Us</NavLink>
             </li>
+            <li className="nav-list-item">
+              <NavLink to="/about2">About Us2</NavLink>
+            </li>
           </ul>
         </nav>
       </header>

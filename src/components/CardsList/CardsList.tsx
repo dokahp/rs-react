@@ -15,7 +15,11 @@ class CardsList extends React.Component<Items, Items> {
     const cardsList = items.map((card: Item) => {
       return <Card key={card.id.videoId} snippet={card.snippet} />;
     });
-    return <div className="cards-wrapper">{cardsList}</div>;
+    return (
+      <div className="main-wrapper">
+        <div className="cards-wrapper">{cardsList}</div>
+      </div>
+    );
   }
 }
 
