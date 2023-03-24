@@ -1,4 +1,5 @@
 import React from 'react';
+import Input from '../Input/Input';
 import Switch from '../Switch/Switch';
 import Upload from '../Upload/Upload';
 import './form.css';
@@ -57,10 +58,11 @@ class Form extends React.Component<Props, State> {
       <div className="form-wrapper" onSubmit={this.handleFormSubmit}>
         <form className="form">
           <Upload reference={this.file} />
-          <label htmlFor="title" className="label">
+          {/* <label htmlFor="title" className="label">
             Title:
             <input name="title" type="text" ref={this.title} />
-          </label>
+          </label> */}
+          <Input referance={this.title} labelText="Video Title" />
 
           <input type="datetime-local" ref={this.date} />
           <select defaultValue="default" ref={this.select}>
