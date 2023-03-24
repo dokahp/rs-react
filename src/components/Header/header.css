@@ -18,6 +18,16 @@
   border-radius: 8px;
   padding: 6px 24px;
 }
+@media (max-width: 525px) {
+  .nav-list-item {
+    padding: 6px 8px;
+  }
+}
+@media (max-width: 360px) {
+  .nav-list-item {
+    padding: 6px 4px;
+  }
+}
 
 .nav-list-item a {
   text-decoration: none;

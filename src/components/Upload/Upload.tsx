@@ -43,6 +43,7 @@ class Upload extends React.PureComponent<Props, State> {
     return (
       <div className="file-upload-wrapper">
         <input
+          name="file-upload"
           ref={reference}
           type="file"
           id="input-file-upload"
@@ -66,6 +67,7 @@ class Upload extends React.PureComponent<Props, State> {
               className="upload-button"
               onClick={this.uploadButtonClick}
             >
+              <img src="./assets/upload.svg" alt="upload-icon" />
               Upload a thumbnail
             </button>
           </div>

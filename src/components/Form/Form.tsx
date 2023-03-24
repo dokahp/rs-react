@@ -45,7 +45,7 @@ class Form extends React.Component<Props, State> {
       this.title.current?.value,
       this.date.current?.value,
       this.select.current?.value,
-      this.file.current?.value,
+      this.file.current?.files?.length ? this.file.current?.files[0] : null,
       this.switchElem.current?.checked
     );
   }
