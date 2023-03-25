@@ -16,7 +16,13 @@ class Input extends React.PureComponent<Props, object> {
     const { labelText, referance } = this.props;
     return (
       <label htmlFor="inp" className="inp">
-        <input ref={referance} type="text" id="inp" placeholder="&nbsp;" />
+        <input
+          ref={referance}
+          autoComplete="new-password"
+          type="text"
+          id="inp"
+          placeholder="&nbsp;"
+        />
         <span className="label">{labelText}</span>
         <span className="focus-bg" />
       </label>

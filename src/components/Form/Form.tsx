@@ -59,8 +59,12 @@ class Form extends React.Component<Props, State> {
     const { switcher } = this.state;
 
     return (
-      <div className="form-wrapper" onSubmit={this.handleFormSubmit}>
-        <form className="form">
+      <div className="form-wrapper">
+        <form
+          className="form"
+          onSubmit={this.handleFormSubmit}
+          autoComplete="off"
+        >
           <Upload reference={this.file} />
           <Input referance={this.videoTitle} labelText="Video Title" />
           <Input referance={this.chanelTitle} labelText="Chanel Title" />
