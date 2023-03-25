@@ -1,0 +1,14 @@
+.checkbox-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.checkbox-input {
+  height: 32px;
+  width: 32px;
+  margin-right: 12px;
+}

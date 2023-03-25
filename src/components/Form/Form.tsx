@@ -1,4 +1,5 @@
 import React from 'react';
+import Checkbox from '../Checkbox/Checkbox';
 import DatePicker from '../DatePicker/DatePicker';
 import Input from '../Input/Input';
 import Select from '../Select/Select';
@@ -20,6 +21,10 @@ class Form extends React.Component<Props, object> {
   file: React.RefObject<HTMLInputElement> = React.createRef();
 
   switchElem: React.RefObject<HTMLInputElement> = React.createRef();
+
+  advCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
+
+  notificationCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
 
   constructor(props: Props) {
     super(props);
@@ -53,6 +58,14 @@ class Form extends React.Component<Props, object> {
           <DatePicker referance={this.date} />
           <Select referance={this.select} />
           <Switch reference={this.switchElem} name="react-switch-new" />
+          <Checkbox
+            referance={this.advCheckbox}
+            description="Video contains direct advertising"
+          />
+          <Checkbox
+            referance={this.notificationCheckbox}
+            description="Send a notification to subscribers"
+          />
           <button type="submit">Submit</button>
         </form>
       </div>
