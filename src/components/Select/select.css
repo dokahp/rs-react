@@ -1,0 +1,13 @@
+.select {
+  height: 56px;
+  margin-bottom: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  font-size: 18px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  padding-left: 12px;
+  padding-right: 12px;
+  border-top: transparent;
+  border-left: transparent;
+  border-right: 22px solid transparent;
+}

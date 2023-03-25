@@ -1,19 +1,14 @@
 import React from 'react';
 import DatePicker from '../DatePicker/DatePicker';
 import Input from '../Input/Input';
+import Select from '../Select/Select';
 import Switch from '../Switch/Switch';
 import Upload from '../Upload/Upload';
 import './form.css';
 
 type Props = object;
 
-interface State {
-  switcher: {
-    isOn: boolean;
-  };
-}
-
-class Form extends React.Component<Props, State> {
+class Form extends React.Component<Props, object> {
   videoTitle: React.RefObject<HTMLInputElement> = React.createRef();
 
   chanelTitle: React.RefObject<HTMLInputElement> = React.createRef();
@@ -28,19 +23,8 @@ class Form extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.handleSwitch = this.handleSwitch.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.state = {
-      switcher: {
-        isOn: false,
-      },
-    };
-  }
-
-  handleSwitch() {
-    return this.setState((state: State) => {
-      return { switcher: { isOn: !state.switcher.isOn } };
-    });
+    this.state = {};
   }
 
   handleFormSubmit(event: React.SyntheticEvent) {
@@ -56,8 +40,6 @@ class Form extends React.Component<Props, State> {
   }
 
   render() {
-    const { switcher } = this.state;
-
     return (
       <div className="form-wrapper">
         <form
@@ -69,22 +51,8 @@ class Form extends React.Component<Props, State> {
           <Input referance={this.videoTitle} labelText="Video Title" />
           <Input referance={this.chanelTitle} labelText="Chanel Title" />
           <DatePicker referance={this.date} />
-
-          <select defaultValue="default" ref={this.select}>
-            <option value="Video">Video</option>
-            <option value="Stream">Stream</option>
-            <option value="default">Select video type</option>
-          </select>
-
-          <label htmlFor="react-switch-new" className="label">
-            <Switch
-              reference={this.switchElem}
-              name="react-switch-new"
-              isOn={switcher.isOn}
-              handleSwitch={this.handleSwitch}
-            />
-            Send notification to subscribers
-          </label>
+          <Select referance={this.select} />
+          <Switch reference={this.switchElem} name="react-switch-new" />
           <button type="submit">Submit</button>
         </form>
       </div>
