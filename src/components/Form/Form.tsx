@@ -1,4 +1,5 @@
 import React from 'react';
+import DatePicker from '../DatePicker/DatePicker';
 import Input from '../Input/Input';
 import Switch from '../Switch/Switch';
 import Upload from '../Upload/Upload';
@@ -13,7 +14,9 @@ interface State {
 }
 
 class Form extends React.Component<Props, State> {
-  title: React.RefObject<HTMLInputElement> = React.createRef();
+  videoTitle: React.RefObject<HTMLInputElement> = React.createRef();
+
+  chanelTitle: React.RefObject<HTMLInputElement> = React.createRef();
 
   date: React.RefObject<HTMLInputElement> = React.createRef();
 
@@ -43,7 +46,8 @@ class Form extends React.Component<Props, State> {
   handleFormSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     console.log(
-      this.title.current?.value,
+      this.videoTitle.current?.value,
+      this.chanelTitle.current?.value,
       this.date.current?.value,
       this.select.current?.value,
       this.file.current?.files?.length ? this.file.current?.files[0] : null,
@@ -58,13 +62,10 @@ class Form extends React.Component<Props, State> {
       <div className="form-wrapper" onSubmit={this.handleFormSubmit}>
         <form className="form">
           <Upload reference={this.file} />
-          {/* <label htmlFor="title" className="label">
-            Title:
-            <input name="title" type="text" ref={this.title} />
-          </label> */}
-          <Input referance={this.title} labelText="Video Title" />
+          <Input referance={this.videoTitle} labelText="Video Title" />
+          <Input referance={this.chanelTitle} labelText="Chanel Title" />
+          <DatePicker referance={this.date} />
 
-          <input type="datetime-local" ref={this.date} />
           <select defaultValue="default" ref={this.select}>
             <option value="Video">Video</option>
             <option value="Stream">Stream</option>
