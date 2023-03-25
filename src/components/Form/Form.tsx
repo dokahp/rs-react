@@ -3,6 +3,7 @@ import Checkbox from '../Checkbox/Checkbox';
 import DatePicker from '../DatePicker/DatePicker';
 import Input from '../Input/Input';
 import Select from '../Select/Select';
+import SubmitBtn from '../SubmitBtn/SubmitBtn';
 import Switch from '../Switch/Switch';
 import Upload from '../Upload/Upload';
 import './form.css';
@@ -66,7 +67,17 @@ class Form extends React.Component<Props, object> {
             referance={this.notificationCheckbox}
             description="Send a notification to subscribers"
           />
-          <button type="submit">Submit</button>
+          <div
+            style={{
+              color: 'rgba(255, 255, 255, 0.5)',
+              fontSize: '18px',
+              fontWeight: '700',
+              marginBottom: '20px',
+            }}
+          >
+            <sup>*</sup> - Required field
+          </div>
+          <SubmitBtn />
         </form>
       </div>
     );

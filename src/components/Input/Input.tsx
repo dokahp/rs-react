@@ -23,7 +23,10 @@ class Input extends React.PureComponent<Props, object> {
           id="inp"
           placeholder="&nbsp;"
         />
-        <span className="label">{labelText}</span>
+        <span className="label">
+          {labelText}
+          <sup>*</sup>
+        </span>
         <span className="focus-bg" />
       </label>
     );

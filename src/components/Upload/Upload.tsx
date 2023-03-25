@@ -68,7 +68,7 @@ class Upload extends React.PureComponent<Props, State> {
               onClick={this.uploadButtonClick}
             >
               <img src="./assets/upload.svg" alt="upload-icon" />
-              Upload a thumbnail
+              Upload a thumbnail<sup>*</sup>
             </button>
           </div>
         </label>

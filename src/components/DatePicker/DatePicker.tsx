@@ -14,7 +14,12 @@ class DatePicker extends React.Component<Props, object> {
   render() {
     const { referance } = this.props;
     return (
-      <input type="datetime-local" ref={referance} className="datepicker" />
+      <div className="datepicker-wrapper">
+        <span className="label">
+          Publication date<sup>*</sup>
+        </span>
+        <input type="datetime-local" ref={referance} className="datepicker" />
+      </div>
     );
   }
 }
