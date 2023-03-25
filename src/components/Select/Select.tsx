@@ -18,7 +18,7 @@ class Select extends React.Component<Props, object> {
         <option value="Video">Video</option>
         <option value="Stream">Stream</option>
         <option value="default" hidden>
-          Select video type<sup>*</sup>
+          Select video type*
         </option>
       </select>
     );
