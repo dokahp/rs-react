@@ -1,6 +1,7 @@
 import React from 'react';
 import YourCard, { YourCardProps } from '../components/Card/YourCard';
 import Form from '../components/Form/Form';
+import Snackbar from '../components/Snackbar/Snackbar';
 
 type Props = object;
 interface State {
@@ -17,6 +18,7 @@ interface State {
     select: { err: boolean; msg: string };
     terms: { err: boolean; msg: string };
   };
+  snackbar: { text: string; className: string };
 }
 
 class YourVideos extends React.PureComponent<Props, State> {
@@ -59,6 +61,7 @@ class YourVideos extends React.PureComponent<Props, State> {
         select: { err: false, msg: '' },
         terms: { err: false, msg: '' },
       },
+      snackbar: { text: '', className: '' },
     };
   }
 
@@ -111,6 +114,9 @@ class YourVideos extends React.PureComponent<Props, State> {
       }),
       () => this.handleFormReset()
     );
+    if (notification) {
+      this.showSnackbar('Notification sended to subscribers');
+    }
     return {};
   }
 
@@ -212,6 +218,7 @@ class YourVideos extends React.PureComponent<Props, State> {
         terms: { err: false, msg: '' },
       },
     });
+    // this.showSnackbar('Video was added!');
     this.form.current?.reset();
   }
 
@@ -235,8 +242,20 @@ class YourVideos extends React.PureComponent<Props, State> {
     });
   }
 
+  showSnackbar(text: string) {
+    const className = 'show';
+    this.setState({
+      snackbar: { text, className },
+    });
+    setTimeout(() => {
+      this.setState({
+        snackbar: { text: '', className: '' },
+      });
+    }, 3000);
+  }
+
   render() {
-    const { items, switcher, file, errors } = this.state;
+    const { items, switcher, file, errors, snackbar } = this.state;
     const cardsList = items.map((card: YourCardProps) => {
       return (
         <YourCard
@@ -276,6 +295,7 @@ class YourVideos extends React.PureComponent<Props, State> {
         <div className="main-wrapper">
           <div className="cards-wrapper">{cardsList}</div>
         </div>
+        <Snackbar text={snackbar.text} className={snackbar.className} />
       </>
     );
   }

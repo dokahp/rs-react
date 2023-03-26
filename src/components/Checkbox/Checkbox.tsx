@@ -19,12 +19,12 @@ class Checkbox extends React.PureComponent<Props, object> {
     return (
       <>
         <label
-          htmlFor="checkbox"
+          htmlFor={description}
           className="checkbox-label"
           style={err ? { marginBottom: '5px' } : {}}
         >
           <input
-            id="checkbox"
+            id={description}
             type="checkbox"
             ref={reference}
             className="checkbox-input"

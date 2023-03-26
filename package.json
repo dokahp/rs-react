@@ -12,12 +12,15 @@
     "lint": "eslint --ext .js,.ts,.jsx,.tsx src"
   },
   "dependencies": {
+    "@types/react-notification-system": "^0.2.42",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "object-hash": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-notifications": "^1.7.4",
     "react-router-dom": "^6.9.0",
+    "react-toastify": "^9.1.2",
     "sort-by": "^1.2.0",
     "uuid": "^9.0.0",
     "vite-plugin-eslint": "^1.8.1",
