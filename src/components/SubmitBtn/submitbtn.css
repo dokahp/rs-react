@@ -1,4 +1,5 @@
 .submitbtn {
+  cursor: pointer;
   font-size: 21px;
   font-weight: 700;
   height: 56px;
@@ -6,4 +7,9 @@
   border-radius: 9px;
   margin-bottom: 75px;
   border: none;
+}
+
+.submitbtn:hover {
+  background-color: #0b906c;
+  color: #fff;
 }
