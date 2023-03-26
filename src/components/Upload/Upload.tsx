@@ -14,12 +14,12 @@ class Upload extends React.PureComponent<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleChangeFile = this.handleChangeFile.bind(this);
     this.uploadButtonClick = this.uploadButtonClick.bind(this);
     this.state = { file: null };
   }
 
-  handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+  handleChangeFile(event: React.ChangeEvent<HTMLInputElement>) {
     event.preventDefault();
     if (!event.target.files || !event.target.files.length) {
       return this.setState({
@@ -47,7 +47,7 @@ class Upload extends React.PureComponent<Props, State> {
           ref={reference}
           type="file"
           id="input-file-upload"
-          onChange={this.handleChange}
+          onChange={this.handleChangeFile}
           accept="image/png, image/jpg, image/gif, image/jpeg"
           multiple={false}
         />

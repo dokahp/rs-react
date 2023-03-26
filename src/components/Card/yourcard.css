@@ -1,0 +1,86 @@
+.card-wrapper {
+  grid-column-end: span 4;
+  display: flex;
+  flex-direction: column;
+}
+.card-image-wrapper {
+  width: 100%;
+  padding-top: 56.25%;
+  overflow: hidden;
+  position: relative;
+}
+.card-image {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card-content-wrapper {
+  padding: 10px 0;
+}
+.title {
+  color: #f1f1f1;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 21px;
+  font-weight: 500;
+  white-space: normal;
+  width: 90%;
+}
+.channel-title {
+  color: #aaaaaa;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 14px;
+}
+.published-at {
+  color: #aaaaaa;
+  font-family: 'Roboto', 'Arial', sans-serif;
+  font-size: 14px;
+}
+.chips-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+}
+.chip {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  margin-top: 10px;
+  height: 20px;
+  width: 57px;
+  background-color: rgba(204, 0, 0, 0.9);
+  color: #fff;
+  border-radius: 2px;
+  padding: 3px 4px;
+  font-size: 12px;
+  margin-right: 6px;
+}
+.chip img {
+  max-height: 16px;
+  max-width: 16px;
+  position: relative;
+  filter: invert(100%) sepia(93%) saturate(28%) hue-rotate(115deg)
+    brightness(107%) contrast(110%);
+}
+
+@media only screen and (max-width: 1000px) {
+  .card-wrapper {
+    grid-column-end: span 6;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .card-wrapper {
+    grid-column-end: span 12;
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .card-wrapper {
+    grid-column-end: span 6;
+  }
+}

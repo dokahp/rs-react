@@ -30,5 +30,6 @@ module.exports = {
         },
       },
     ],
+    'react/no-array-index-key': 0,
   },
 };
