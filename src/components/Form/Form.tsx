@@ -24,6 +24,7 @@ interface State {
     chanelTitle: { err: boolean; msg: string };
     date: { err: boolean; msg: string };
     select: { err: boolean; msg: string };
+    terms: { err: boolean; msg: string };
   };
 }
 
@@ -41,6 +42,8 @@ class Form extends React.Component<Props, State> {
   file: React.RefObject<HTMLInputElement> = React.createRef();
 
   switchElem: React.RefObject<HTMLInputElement> = React.createRef();
+
+  termsCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
 
   advCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
 
@@ -61,6 +64,7 @@ class Form extends React.Component<Props, State> {
         chanelTitle: { err: false, msg: '' },
         date: { err: false, msg: '' },
         select: { err: false, msg: '' },
+        terms: { err: false, msg: '' },
       },
     };
   }
@@ -88,6 +92,7 @@ class Form extends React.Component<Props, State> {
         chanelTitle: { err: false, msg: '' },
         date: { err: false, msg: '' },
         select: { err: false, msg: '' },
+        terms: { err: false, msg: '' },
       },
     });
     const isFormValid = this.handleFormValidation();
@@ -132,7 +137,8 @@ class Form extends React.Component<Props, State> {
       this.videoTitle.current &&
       this.chanelTitle.current &&
       this.date.current &&
-      this.select.current
+      this.select.current &&
+      this.termsCheckbox.current
     ) {
       const validationEl = [
         this.videoTitle.current,
@@ -162,6 +168,15 @@ class Form extends React.Component<Props, State> {
         }));
         isFormValid = false;
       }
+      if (!this.termsCheckbox.current.checked) {
+        this.setState((state: State) => ({
+          errors: {
+            ...state.errors,
+            terms: { err: true, msg: 'Your should accept terms of usage' },
+          },
+        }));
+        isFormValid = false;
+      }
     }
     return isFormValid;
   }
@@ -176,6 +191,7 @@ class Form extends React.Component<Props, State> {
         chanelTitle: { err: false, msg: '' },
         date: { err: false, msg: '' },
         select: { err: false, msg: '' },
+        terms: { err: false, msg: '' },
       },
     });
     this.form.current?.reset();
@@ -267,12 +283,22 @@ class Form extends React.Component<Props, State> {
               handleSwitch={this.handleSwitch}
             />
             <Checkbox
+              referance={this.termsCheckbox}
+              description="I accept terms of usage*"
+              err={errors.terms.err}
+              msg={errors.terms.msg}
+            />
+            <Checkbox
               referance={this.advCheckbox}
               description="Video contains direct advertising"
+              err={false}
+              msg=""
             />
             <Checkbox
               referance={this.notificationCheckbox}
               description="Send a notification to subscribers"
+              err={false}
+              msg=""
             />
             <div
               style={{

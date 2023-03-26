@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.78% </span>
+                <span class="strong">31.42% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>20/61</span>
+                <span class='fraction'>22/70</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">32.78% </span>
+                <span class="strong">31.42% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>20/61</span>
+                <span class='fraction'>22/70</span>
             </div>
         
             
@@ -124,7 +124,18 @@
 <a name='L59'></a><a href='#L59'>59</a>
 <a name='L60'></a><a href='#L60'>60</a>
 <a name='L61'></a><a href='#L61'>61</a>
-<a name='L62'></a><a href='#L62'>62</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L62'></a><a href='#L62'>62</a>
+<a name='L63'></a><a href='#L63'>63</a>
+<a name='L64'></a><a href='#L64'>64</a>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a>
+<a name='L69'></a><a href='#L69'>69</a>
+<a name='L70'></a><a href='#L70'>70</a>
+<a name='L71'></a><a href='#L71'>71</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -146,6 +157,13 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -192,6 +210,8 @@ interface Props {
   reference: React.RefObject&lt;HTMLInputElement&gt;;
   file: string | null;
   handleChangeFile: (event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; void;
+  err: boolean;
+  msg: string;
 }
 &nbsp;
 class Upload extends React.PureComponent&lt;Props, object&gt; {
@@ -207,40 +227,47 @@ class Upload extends React.PureComponent&lt;Props, object&gt; {
 <span class="cstat-no" title="statement not covered" >  }</span>
 &nbsp;
 <span class="fstat-no" title="function not covered" >  render() {</span>
-<span class="cstat-no" title="statement not covered" >    const { reference, file, handleChangeFile } = this.props;</span>
+<span class="cstat-no" title="statement not covered" >    const { reference, file, handleChangeFile, err, msg } = this.props;</span>
 <span class="cstat-no" title="statement not covered" >    return (</span>
-<span class="cstat-no" title="statement not covered" >      &lt;div className="file-upload-wrapper"&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;input</span>
-<span class="cstat-no" title="statement not covered" >          name="file-upload"</span>
-<span class="cstat-no" title="statement not covered" >          ref={reference}</span>
-<span class="cstat-no" title="statement not covered" >          type="file"</span>
-<span class="cstat-no" title="statement not covered" >          id="input-file-upload"</span>
-<span class="cstat-no" title="statement not covered" >          onChange={handleChangeFile}</span>
-<span class="cstat-no" title="statement not covered" >          accept="image/png, image/jpg, image/gif, image/jpeg"</span>
-<span class="cstat-no" title="statement not covered" >          multiple={false}</span>
-<span class="cstat-no" title="statement not covered" >        /&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;label</span>
-<span class="cstat-no" title="statement not covered" >          id="label-file-upload"</span>
-<span class="cstat-no" title="statement not covered" >          htmlFor="input-file-upload"</span>
-<span class="cstat-no" title="statement not covered" >          ref={this.label}</span>
+<span class="cstat-no" title="statement not covered" >      &lt;&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div</span>
+<span class="cstat-no" title="statement not covered" >          className="file-upload-wrapper"</span>
+<span class="cstat-no" title="statement not covered" >          style={err ? { marginBottom: '5px' } : {}}</span>
 <span class="cstat-no" title="statement not covered" >        &gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;div className="image-wrapper"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;img</span>
-<span class="cstat-no" title="statement not covered" >              className="uploaded-image"</span>
-<span class="cstat-no" title="statement not covered" >              src={file || './assets/no-image.png'}</span>
-<span class="cstat-no" title="statement not covered" >              alt="uploaded"</span>
-<span class="cstat-no" title="statement not covered" >            /&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;button</span>
-<span class="cstat-no" title="statement not covered" >              type="button"</span>
-<span class="cstat-no" title="statement not covered" >              className="upload-button"</span>
-<span class="cstat-no" title="statement not covered" >              onClick={this.uploadButtonClick}</span>
-<span class="cstat-no" title="statement not covered" >            &gt;</span>
-<span class="cstat-no" title="statement not covered" >              &lt;img src="./assets/upload.svg" alt="upload-icon" /&gt;</span>
-<span class="cstat-no" title="statement not covered" >              Upload a thumbnail&lt;sup&gt;*&lt;/sup&gt;</span>
-<span class="cstat-no" title="statement not covered" >            &lt;/button&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/div&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/label&gt;</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;input</span>
+<span class="cstat-no" title="statement not covered" >            name="file-upload"</span>
+<span class="cstat-no" title="statement not covered" >            ref={reference}</span>
+<span class="cstat-no" title="statement not covered" >            type="file"</span>
+<span class="cstat-no" title="statement not covered" >            id="input-file-upload"</span>
+<span class="cstat-no" title="statement not covered" >            onChange={handleChangeFile}</span>
+<span class="cstat-no" title="statement not covered" >            accept="image/png, image/jpg, image/gif, image/jpeg"</span>
+<span class="cstat-no" title="statement not covered" >            multiple={false}</span>
+<span class="cstat-no" title="statement not covered" >          /&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;label</span>
+<span class="cstat-no" title="statement not covered" >            id="label-file-upload"</span>
+<span class="cstat-no" title="statement not covered" >            htmlFor="input-file-upload"</span>
+<span class="cstat-no" title="statement not covered" >            ref={this.label}</span>
+<span class="cstat-no" title="statement not covered" >            style={err ? { border: '3px dashed rgb(216, 0, 12)' } : {}}</span>
+<span class="cstat-no" title="statement not covered" >          &gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;div className="image-wrapper"&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;img</span>
+<span class="cstat-no" title="statement not covered" >                className="uploaded-image"</span>
+<span class="cstat-no" title="statement not covered" >                src={file || './assets/no-image.png'}</span>
+<span class="cstat-no" title="statement not covered" >                alt="uploaded"</span>
+<span class="cstat-no" title="statement not covered" >              /&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;button</span>
+<span class="cstat-no" title="statement not covered" >                type="button"</span>
+<span class="cstat-no" title="statement not covered" >                className="upload-button"</span>
+<span class="cstat-no" title="statement not covered" >                onClick={this.uploadButtonClick}</span>
+<span class="cstat-no" title="statement not covered" >              &gt;</span>
+<span class="cstat-no" title="statement not covered" >                &lt;img src="./assets/upload.svg" alt="upload-icon" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >                Upload a thumbnail&lt;sup&gt;*&lt;/sup&gt;</span>
+<span class="cstat-no" title="statement not covered" >              &lt;/button&gt;</span>
+<span class="cstat-no" title="statement not covered" >            &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >          &lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >        {err ? &lt;div className="error-block"&gt;{msg}&lt;/div&gt; : ''}</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/&gt;</span>
 <span class="cstat-no" title="statement not covered" >    );</span>
 <span class="cstat-no" title="statement not covered" >  }</span>
 }
@@ -253,7 +280,7 @@ export default Upload;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-26T13:47:25.629Z
+                at 2023-03-26T18:04:26.276Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
