@@ -3,34 +3,16 @@ import './upload.css';
 
 interface Props {
   reference: React.RefObject<HTMLInputElement>;
-}
-
-interface State {
   file: string | null;
+  handleChangeFile: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-class Upload extends React.PureComponent<Props, State> {
+class Upload extends React.PureComponent<Props, object> {
   label: React.RefObject<HTMLLabelElement> = React.createRef();
 
   constructor(props: Props) {
     super(props);
-    this.handleChangeFile = this.handleChangeFile.bind(this);
     this.uploadButtonClick = this.uploadButtonClick.bind(this);
-    this.state = { file: null };
-  }
-
-  handleChangeFile(event: React.ChangeEvent<HTMLInputElement>) {
-    event.preventDefault();
-    if (!event.target.files || !event.target.files.length) {
-      return this.setState({
-        file: null,
-      });
-    }
-    return this.setState({
-      file: event.target.files
-        ? URL.createObjectURL(event.target.files[0]).toString()
-        : null,
-    });
   }
 
   uploadButtonClick() {
@@ -38,8 +20,7 @@ class Upload extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const { reference } = this.props;
-    const { file } = this.state;
+    const { reference, file, handleChangeFile } = this.props;
     return (
       <div className="file-upload-wrapper">
         <input
@@ -47,7 +28,7 @@ class Upload extends React.PureComponent<Props, State> {
           ref={reference}
           type="file"
           id="input-file-upload"
-          onChange={this.handleChangeFile}
+          onChange={handleChangeFile}
           accept="image/png, image/jpg, image/gif, image/jpeg"
           multiple={false}
         />

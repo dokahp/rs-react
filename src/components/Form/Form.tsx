@@ -14,6 +14,10 @@ type Props = object;
 
 interface State {
   items: YourCardProps[];
+  switcher: {
+    isOn: boolean;
+  };
+  file: string | null;
 }
 
 class Form extends React.Component<Props, State> {
@@ -37,8 +41,10 @@ class Form extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    this.handleSwitch = this.handleSwitch.bind(this);
+    this.handleChangeFile = this.handleChangeFile.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.state = { items: [] };
+    this.state = { items: [], switcher: { isOn: false }, file: null };
   }
 
   handleFormSubmit(event: React.SyntheticEvent) {
@@ -57,16 +63,16 @@ class Form extends React.Component<Props, State> {
       ? this.notificationCheckbox.current.checked
       : false;
 
-    console.log(
-      this.file.current?.files?.length ? this.file.current?.files[0] : null,
-      this.videoTitle.current?.value,
-      this.chanelTitle.current?.value,
-      this.date.current?.value,
-      this.select.current?.value,
-      this.switchElem.current?.checked,
-      this.advCheckbox.current?.checked,
-      this.notificationCheckbox.current?.checked
-    );
+    // console.log(
+    //   this.file.current?.files?.length ? this.file.current?.files[0] : null,
+    //   this.videoTitle.current?.value,
+    //   this.chanelTitle.current?.value,
+    //   this.date.current?.value,
+    //   this.select.current?.value,
+    //   this.switchElem.current?.checked,
+    //   this.advCheckbox.current?.checked,
+    //   this.notificationCheckbox.current?.checked
+    // );
     this.setState(
       (state: State) => ({
         items: [
@@ -89,11 +95,36 @@ class Form extends React.Component<Props, State> {
   }
 
   handleFormReset() {
+    this.setState({
+      switcher: { isOn: false },
+      file: null,
+    });
     this.form.current?.reset();
   }
 
+  handleSwitch() {
+    this.setState((state: State) => ({
+      switcher: { isOn: !state.switcher.isOn },
+    }));
+  }
+
+  handleChangeFile(event: React.ChangeEvent<HTMLInputElement>) {
+    event.preventDefault();
+    if (!event.target.files || !event.target.files.length) {
+      return this.setState({
+        file: null,
+      });
+    }
+    return this.setState({
+      file: event.target.files
+        ? URL.createObjectURL(event.target.files[0]).toString()
+        : null,
+    });
+  }
+
   render() {
-    const { items } = this.state;
+    const { items, switcher, file } = this.state;
+    const { isOn } = switcher;
     const cardsList = items.map((card: YourCardProps) => {
       return (
         <YourCard
@@ -117,12 +148,21 @@ class Form extends React.Component<Props, State> {
             autoComplete="off"
             ref={this.form}
           >
-            <Upload reference={this.file} />
+            <Upload
+              reference={this.file}
+              file={file}
+              handleChangeFile={this.handleChangeFile}
+            />
             <Input referance={this.videoTitle} labelText="Video Title" />
             <Input referance={this.chanelTitle} labelText="Chanel Title" />
             <DatePicker referance={this.date} />
             <Select referance={this.select} />
-            <Switch reference={this.switchElem} name="react-switch-new" />
+            <Switch
+              reference={this.switchElem}
+              name="react-switch-new"
+              isOn={isOn}
+              handleSwitch={this.handleSwitch}
+            />
             <Checkbox
               referance={this.advCheckbox}
               description="Video contains direct advertising"
