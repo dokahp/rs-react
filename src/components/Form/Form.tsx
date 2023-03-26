@@ -231,7 +231,11 @@ class Form extends React.Component<Props, State> {
               err={errors.chanelTitle.err}
               msg={errors.chanelTitle.msg}
             />
-            <DatePicker referance={this.date} />
+            <DatePicker
+              referance={this.date}
+              err={errors.date.err}
+              msg={errors.date.msg}
+            />
             <Select referance={this.select} />
             <Switch
               reference={this.switchElem}

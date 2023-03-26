@@ -32,3 +32,8 @@
   transition: all 0.2s ease;
   pointer-events: none;
 }
+.checkbox-input {
+  height: 32px;
+  width: 32px;
+  margin-right: 12px;
+}
