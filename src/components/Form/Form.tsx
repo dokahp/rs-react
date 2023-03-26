@@ -19,6 +19,7 @@ interface State {
   };
   file: string | null;
   errors: {
+    file: { err: boolean; msg: string };
     videoTitle: { err: boolean; msg: string };
     chanelTitle: { err: boolean; msg: string };
     date: { err: boolean; msg: string };
@@ -29,8 +30,7 @@ interface State {
 class Form extends React.Component<Props, State> {
   form: React.RefObject<HTMLFormElement> = React.createRef();
 
-  videoTitle: React.RefObject<HTMLInputElement> =
-    React.createRef<HTMLInputElement>();
+  videoTitle: React.RefObject<HTMLInputElement> = React.createRef();
 
   chanelTitle: React.RefObject<HTMLInputElement> = React.createRef();
 
@@ -56,6 +56,7 @@ class Form extends React.Component<Props, State> {
       switcher: { isOn: false },
       file: null,
       errors: {
+        file: { err: false, msg: '' },
         videoTitle: { err: false, msg: '' },
         chanelTitle: { err: false, msg: '' },
         date: { err: false, msg: '' },
@@ -80,6 +81,15 @@ class Form extends React.Component<Props, State> {
       ? this.notificationCheckbox.current.checked
       : false;
 
+    this.setState({
+      errors: {
+        file: { err: false, msg: '' },
+        videoTitle: { err: false, msg: '' },
+        chanelTitle: { err: false, msg: '' },
+        date: { err: false, msg: '' },
+        select: { err: false, msg: '' },
+      },
+    });
     const isFormValid = this.handleFormValidation();
     if (!isFormValid) {
       return {};
@@ -108,39 +118,41 @@ class Form extends React.Component<Props, State> {
 
   handleFormValidation(): boolean {
     let isFormValid = true;
+    const { file } = this.state;
+    if (file === null) {
+      this.setState((state: State) => ({
+        errors: {
+          ...state.errors,
+          file: { err: true, msg: 'You must upload an image' },
+        },
+      }));
+      isFormValid = false;
+    }
     if (
       this.videoTitle.current &&
       this.chanelTitle.current &&
       this.date.current &&
       this.select.current
     ) {
-      if (!this.videoTitle.current.value) {
-        this.setState((state: State) => ({
-          errors: {
-            ...state.errors,
-            videoTitle: { err: true, msg: 'Required field' },
-          },
-        }));
-        isFormValid = false;
-      }
-      if (!this.chanelTitle.current.value) {
-        this.setState((state: State) => ({
-          errors: {
-            ...state.errors,
-            chanelTitle: { err: true, msg: 'Required field' },
-          },
-        }));
-        isFormValid = false;
-      }
-      if (!this.date.current.value) {
-        this.setState((state: State) => ({
-          errors: {
-            ...state.errors,
-            date: { err: true, msg: 'Required field' },
-          },
-        }));
-        isFormValid = false;
-      }
+      const validationEl = [
+        this.videoTitle.current,
+        this.chanelTitle.current,
+        this.date.current,
+      ];
+      validationEl.map((el: HTMLInputElement) => {
+        if (!el.value) {
+          const { name } = el;
+          this.setState((state: State) => ({
+            errors: {
+              ...state.errors,
+              [name]: { err: true, msg: 'Required field' },
+            },
+          }));
+          isFormValid = false;
+        }
+        return el;
+      });
+
       if (this.select.current.value === 'default') {
         this.setState((state: State) => ({
           errors: {
@@ -159,6 +171,7 @@ class Form extends React.Component<Props, State> {
       switcher: { isOn: false },
       file: null,
       errors: {
+        file: { err: false, msg: '' },
         videoTitle: { err: false, msg: '' },
         chanelTitle: { err: false, msg: '' },
         date: { err: false, msg: '' },
@@ -218,26 +231,32 @@ class Form extends React.Component<Props, State> {
               reference={this.file}
               file={file}
               handleChangeFile={this.handleChangeFile}
+              err={errors.file.err}
+              msg={errors.file.msg}
             />
             <Input
               referance={this.videoTitle}
               labelText="Video Title"
+              name="videoTitle"
               err={errors.videoTitle.err}
               msg={errors.videoTitle.msg}
             />
             <Input
               referance={this.chanelTitle}
               labelText="Chanel Title"
+              name="chanelTitle"
               err={errors.chanelTitle.err}
               msg={errors.chanelTitle.msg}
             />
             <DatePicker
               referance={this.date}
+              name="date"
               err={errors.date.err}
               msg={errors.date.msg}
             />
             <Select
               referance={this.select}
+              name="select"
               err={errors.select.err}
               msg={errors.select.msg}
             />

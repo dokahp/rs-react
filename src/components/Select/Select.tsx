@@ -3,6 +3,7 @@ import './select.css';
 
 interface Props {
   referance: React.RefObject<HTMLSelectElement>;
+  name: string;
   err: boolean;
   msg: string;
 }
@@ -14,12 +15,13 @@ class Select extends React.Component<Props, object> {
   }
 
   render() {
-    const { referance, err, msg } = this.props;
+    const { referance, name, err, msg } = this.props;
     return (
       <>
         <select
           className="select"
           defaultValue="default"
+          name={name}
           ref={referance}
           style={
             err

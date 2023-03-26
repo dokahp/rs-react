@@ -4,6 +4,7 @@ import './input.css';
 interface Props {
   referance: React.RefObject<HTMLInputElement>;
   labelText: string;
+  name: string;
   err: boolean;
   msg: string;
 }
@@ -15,7 +16,7 @@ class Input extends React.PureComponent<Props, object> {
   }
 
   render() {
-    const { labelText, referance, err, msg } = this.props;
+    const { labelText, name, referance, err, msg } = this.props;
 
     return (
       <>
@@ -33,6 +34,7 @@ class Input extends React.PureComponent<Props, object> {
             autoComplete="new-password"
             type="text"
             id="inp"
+            name={name}
             placeholder="&nbsp;"
           />
           <span className="label">

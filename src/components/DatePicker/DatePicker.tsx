@@ -3,6 +3,7 @@ import './datePicker.css';
 
 interface Props {
   referance: React.RefObject<HTMLInputElement>;
+  name: string;
   err: boolean;
   msg: string;
 }
@@ -14,7 +15,7 @@ class DatePicker extends React.Component<Props, object> {
   }
 
   render() {
-    const { referance, err, msg } = this.props;
+    const { referance, name, err, msg } = this.props;
     return (
       <div className="datepicker-wrapper">
         <span className="label">
@@ -22,6 +23,7 @@ class DatePicker extends React.Component<Props, object> {
         </span>
         <input
           type="datetime-local"
+          name={name}
           ref={referance}
           className="datepicker"
           style={

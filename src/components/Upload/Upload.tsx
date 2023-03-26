@@ -5,6 +5,8 @@ interface Props {
   reference: React.RefObject<HTMLInputElement>;
   file: string | null;
   handleChangeFile: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  err: boolean;
+  msg: string;
 }
 
 class Upload extends React.PureComponent<Props, object> {
@@ -20,40 +22,47 @@ class Upload extends React.PureComponent<Props, object> {
   }
 
   render() {
-    const { reference, file, handleChangeFile } = this.props;
+    const { reference, file, handleChangeFile, err, msg } = this.props;
     return (
-      <div className="file-upload-wrapper">
-        <input
-          name="file-upload"
-          ref={reference}
-          type="file"
-          id="input-file-upload"
-          onChange={handleChangeFile}
-          accept="image/png, image/jpg, image/gif, image/jpeg"
-          multiple={false}
-        />
-        <label
-          id="label-file-upload"
-          htmlFor="input-file-upload"
-          ref={this.label}
+      <>
+        <div
+          className="file-upload-wrapper"
+          style={err ? { marginBottom: '5px' } : {}}
         >
-          <div className="image-wrapper">
-            <img
-              className="uploaded-image"
-              src={file || './assets/no-image.png'}
-              alt="uploaded"
-            />
-            <button
-              type="button"
-              className="upload-button"
-              onClick={this.uploadButtonClick}
-            >
-              <img src="./assets/upload.svg" alt="upload-icon" />
-              Upload a thumbnail<sup>*</sup>
-            </button>
-          </div>
-        </label>
-      </div>
+          <input
+            name="file-upload"
+            ref={reference}
+            type="file"
+            id="input-file-upload"
+            onChange={handleChangeFile}
+            accept="image/png, image/jpg, image/gif, image/jpeg"
+            multiple={false}
+          />
+          <label
+            id="label-file-upload"
+            htmlFor="input-file-upload"
+            ref={this.label}
+            style={err ? { border: '3px dashed rgb(216, 0, 12)' } : {}}
+          >
+            <div className="image-wrapper">
+              <img
+                className="uploaded-image"
+                src={file || './assets/no-image.png'}
+                alt="uploaded"
+              />
+              <button
+                type="button"
+                className="upload-button"
+                onClick={this.uploadButtonClick}
+              >
+                <img src="./assets/upload.svg" alt="upload-icon" />
+                Upload a thumbnail<sup>*</sup>
+              </button>
+            </div>
+          </label>
+        </div>
+        {err ? <div className="error-block">{msg}</div> : ''}
+      </>
     );
   }
 }
