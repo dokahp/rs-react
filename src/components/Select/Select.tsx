@@ -3,6 +3,8 @@ import './select.css';
 
 interface Props {
   referance: React.RefObject<HTMLSelectElement>;
+  err: boolean;
+  msg: string;
 }
 
 class Select extends React.Component<Props, object> {
@@ -12,15 +14,27 @@ class Select extends React.Component<Props, object> {
   }
 
   render() {
-    const { referance } = this.props;
+    const { referance, err, msg } = this.props;
     return (
-      <select className="select" defaultValue="default" ref={referance}>
-        <option value="Video">Video</option>
-        <option value="Stream">Stream</option>
-        <option value="default" hidden>
-          Select video type*
-        </option>
-      </select>
+      <>
+        <select
+          className="select"
+          defaultValue="default"
+          ref={referance}
+          style={
+            err
+              ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' }
+              : {}
+          }
+        >
+          <option value="Video">Video</option>
+          <option value="Stream">Stream</option>
+          <option value="default" hidden>
+            Select video type*
+          </option>
+        </select>
+        {err ? <div className="error-block">{msg}</div> : ''}
+      </>
     );
   }
 }

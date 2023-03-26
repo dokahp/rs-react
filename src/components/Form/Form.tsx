@@ -236,7 +236,11 @@ class Form extends React.Component<Props, State> {
               err={errors.date.err}
               msg={errors.date.msg}
             />
-            <Select referance={this.select} />
+            <Select
+              referance={this.select}
+              err={errors.select.err}
+              msg={errors.select.msg}
+            />
             <Switch
               reference={this.switchElem}
               name="react-switch-new"
