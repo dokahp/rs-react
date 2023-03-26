@@ -2,7 +2,7 @@ import React from 'react';
 import './checkbox.css';
 
 interface Props {
-  referance: React.RefObject<HTMLInputElement>;
+  reference: React.RefObject<HTMLInputElement>;
   description: string;
   err: boolean;
   msg: string;
@@ -15,7 +15,7 @@ class Checkbox extends React.PureComponent<Props, object> {
   }
 
   render() {
-    const { referance, description, err, msg } = this.props;
+    const { reference, description, err, msg } = this.props;
     return (
       <>
         <label
@@ -26,7 +26,7 @@ class Checkbox extends React.PureComponent<Props, object> {
           <input
             id="checkbox"
             type="checkbox"
-            ref={referance}
+            ref={reference}
             className="checkbox-input"
           />
           {description}
