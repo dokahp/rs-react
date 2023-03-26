@@ -31,13 +31,5 @@ module.exports = {
       },
     ],
     'react/no-array-index-key': 0,
-    'import/no-extraneous-dependencies': [
-      'error',
-      {
-        devDependencies: false,
-        optionalDependencies: false,
-        peerDependencies: false,
-      },
-    ],
   },
 };
