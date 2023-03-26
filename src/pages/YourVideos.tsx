@@ -2,26 +2,11 @@ import React from 'react';
 import YourCard, { YourCardProps } from '../components/Card/YourCard';
 import Form from '../components/Form/Form';
 import Snackbar from '../components/Snackbar/Snackbar';
+import { YourVideosState } from './interfaces/yourVideos.interface';
 
 type Props = object;
-interface State {
-  items: YourCardProps[];
-  switcher: {
-    isOn: boolean;
-  };
-  file: string | null;
-  errors: {
-    file: { err: boolean; msg: string };
-    videoTitle: { err: boolean; msg: string };
-    chanelTitle: { err: boolean; msg: string };
-    date: { err: boolean; msg: string };
-    select: { err: boolean; msg: string };
-    terms: { err: boolean; msg: string };
-  };
-  snackbar: { text: string; className: string };
-}
 
-class YourVideos extends React.PureComponent<Props, State> {
+class YourVideos extends React.PureComponent<Props, YourVideosState> {
   form: React.RefObject<HTMLFormElement> = React.createRef();
 
   videoTitle: React.RefObject<HTMLInputElement> = React.createRef();
@@ -70,7 +55,6 @@ class YourVideos extends React.PureComponent<Props, State> {
     const file = this.file.current?.files?.length
       ? this.file.current?.files[0]
       : null;
-
     const adultContent = this.switchElem.current
       ? this.switchElem.current?.checked
       : false;
@@ -96,7 +80,7 @@ class YourVideos extends React.PureComponent<Props, State> {
       return {};
     }
     this.setState(
-      (state: State) => ({
+      (state: YourVideosState) => ({
         items: [
           ...state.items,
           {
@@ -115,7 +99,9 @@ class YourVideos extends React.PureComponent<Props, State> {
       () => this.handleFormReset()
     );
     if (notification) {
-      this.showSnackbar('Notification sended to subscribers');
+      this.showSnackbar('Video added. Notification sent');
+    } else {
+      this.showSnackbar(`Video added.`);
     }
     return {};
   }
@@ -124,7 +110,7 @@ class YourVideos extends React.PureComponent<Props, State> {
     let isFormValid = true;
     const { file } = this.state;
     if (file === null) {
-      this.setState((state: State) => ({
+      this.setState((state: YourVideosState) => ({
         errors: {
           ...state.errors,
           file: { err: true, msg: 'You must upload an image' },
@@ -152,7 +138,7 @@ class YourVideos extends React.PureComponent<Props, State> {
           /^\d+$/.test(el.value)
         ) {
           const { name } = el;
-          this.setState((state: State) => ({
+          this.setState((state: YourVideosState) => ({
             errors: {
               ...state.errors,
               [name]: { err: true, msg: "Can't contain only numbers" },
@@ -162,7 +148,7 @@ class YourVideos extends React.PureComponent<Props, State> {
         }
         if (el.value && el.value.length < 6 && el.name !== 'date') {
           const { name } = el;
-          this.setState((state: State) => ({
+          this.setState((state: YourVideosState) => ({
             errors: {
               ...state.errors,
               [name]: { err: true, msg: 'Minimum 6 characters required' },
@@ -172,7 +158,7 @@ class YourVideos extends React.PureComponent<Props, State> {
         }
         if (!el.value) {
           const { name } = el;
-          this.setState((state: State) => ({
+          this.setState((state: YourVideosState) => ({
             errors: {
               ...state.errors,
               [name]: { err: true, msg: 'Required field' },
@@ -184,7 +170,7 @@ class YourVideos extends React.PureComponent<Props, State> {
       });
 
       if (this.select.current.value === 'default') {
-        this.setState((state: State) => ({
+        this.setState((state: YourVideosState) => ({
           errors: {
             ...state.errors,
             select: { err: true, msg: 'Select video type' },
@@ -193,7 +179,7 @@ class YourVideos extends React.PureComponent<Props, State> {
         isFormValid = false;
       }
       if (!this.termsCheckbox.current.checked) {
-        this.setState((state: State) => ({
+        this.setState((state: YourVideosState) => ({
           errors: {
             ...state.errors,
             terms: { err: true, msg: 'Your should accept terms of usage' },
@@ -218,12 +204,11 @@ class YourVideos extends React.PureComponent<Props, State> {
         terms: { err: false, msg: '' },
       },
     });
-    // this.showSnackbar('Video was added!');
     this.form.current?.reset();
   }
 
   handleSwitch() {
-    this.setState((state: State) => ({
+    this.setState((state: YourVideosState) => ({
       switcher: { isOn: !state.switcher.isOn },
     }));
   }
@@ -251,7 +236,7 @@ class YourVideos extends React.PureComponent<Props, State> {
       this.setState({
         snackbar: { text: '', className: '' },
       });
-    }, 3000);
+    }, 4000);
   }
 
   render() {
