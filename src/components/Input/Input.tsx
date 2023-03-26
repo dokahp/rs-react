@@ -4,6 +4,8 @@ import './input.css';
 interface Props {
   referance: React.RefObject<HTMLInputElement>;
   labelText: string;
+  err: boolean;
+  msg: string;
 }
 
 class Input extends React.PureComponent<Props, object> {
@@ -13,22 +15,34 @@ class Input extends React.PureComponent<Props, object> {
   }
 
   render() {
-    const { labelText, referance } = this.props;
+    const { labelText, referance, err, msg } = this.props;
+
     return (
-      <label htmlFor="inp" className="inp">
-        <input
-          ref={referance}
-          autoComplete="new-password"
-          type="text"
-          id="inp"
-          placeholder="&nbsp;"
-        />
-        <span className="label">
-          {labelText}
-          <sup>*</sup>
-        </span>
-        <span className="focus-bg" />
-      </label>
+      <>
+        <label
+          htmlFor="inp"
+          className="inp"
+          style={
+            err
+              ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' }
+              : {}
+          }
+        >
+          <input
+            ref={referance}
+            autoComplete="new-password"
+            type="text"
+            id="inp"
+            placeholder="&nbsp;"
+          />
+          <span className="label">
+            {labelText}
+            <sup>*</sup>
+          </span>
+          <span className="focus-bg" />
+        </label>
+        {err ? <div className="error-block">{msg}</div> : ''}
+      </>
     );
   }
 }

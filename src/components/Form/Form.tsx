@@ -18,12 +18,19 @@ interface State {
     isOn: boolean;
   };
   file: string | null;
+  errors: {
+    videoTitle: { err: boolean; msg: string };
+    chanelTitle: { err: boolean; msg: string };
+    date: { err: boolean; msg: string };
+    select: { err: boolean; msg: string };
+  };
 }
 
 class Form extends React.Component<Props, State> {
   form: React.RefObject<HTMLFormElement> = React.createRef();
 
-  videoTitle: React.RefObject<HTMLInputElement> = React.createRef();
+  videoTitle: React.RefObject<HTMLInputElement> =
+    React.createRef<HTMLInputElement>();
 
   chanelTitle: React.RefObject<HTMLInputElement> = React.createRef();
 
@@ -44,7 +51,17 @@ class Form extends React.Component<Props, State> {
     this.handleSwitch = this.handleSwitch.bind(this);
     this.handleChangeFile = this.handleChangeFile.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.state = { items: [], switcher: { isOn: false }, file: null };
+    this.state = {
+      items: [],
+      switcher: { isOn: false },
+      file: null,
+      errors: {
+        videoTitle: { err: false, msg: '' },
+        chanelTitle: { err: false, msg: '' },
+        date: { err: false, msg: '' },
+        select: { err: false, msg: '' },
+      },
+    };
   }
 
   handleFormSubmit(event: React.SyntheticEvent) {
@@ -63,16 +80,10 @@ class Form extends React.Component<Props, State> {
       ? this.notificationCheckbox.current.checked
       : false;
 
-    // console.log(
-    //   this.file.current?.files?.length ? this.file.current?.files[0] : null,
-    //   this.videoTitle.current?.value,
-    //   this.chanelTitle.current?.value,
-    //   this.date.current?.value,
-    //   this.select.current?.value,
-    //   this.switchElem.current?.checked,
-    //   this.advCheckbox.current?.checked,
-    //   this.notificationCheckbox.current?.checked
-    // );
+    const isFormValid = this.handleFormValidation();
+    if (!isFormValid) {
+      return {};
+    }
     this.setState(
       (state: State) => ({
         items: [
@@ -92,12 +103,67 @@ class Form extends React.Component<Props, State> {
       }),
       () => this.handleFormReset()
     );
+    return {};
+  }
+
+  handleFormValidation(): boolean {
+    let isFormValid = true;
+    if (
+      this.videoTitle.current &&
+      this.chanelTitle.current &&
+      this.date.current &&
+      this.select.current
+    ) {
+      if (!this.videoTitle.current.value) {
+        this.setState((state: State) => ({
+          errors: {
+            ...state.errors,
+            videoTitle: { err: true, msg: 'Required field' },
+          },
+        }));
+        isFormValid = false;
+      }
+      if (!this.chanelTitle.current.value) {
+        this.setState((state: State) => ({
+          errors: {
+            ...state.errors,
+            chanelTitle: { err: true, msg: 'Required field' },
+          },
+        }));
+        isFormValid = false;
+      }
+      if (!this.date.current.value) {
+        this.setState((state: State) => ({
+          errors: {
+            ...state.errors,
+            date: { err: true, msg: 'Required field' },
+          },
+        }));
+        isFormValid = false;
+      }
+      if (this.select.current.value === 'default') {
+        this.setState((state: State) => ({
+          errors: {
+            ...state.errors,
+            select: { err: true, msg: 'Select video type' },
+          },
+        }));
+        isFormValid = false;
+      }
+    }
+    return isFormValid;
   }
 
   handleFormReset() {
     this.setState({
       switcher: { isOn: false },
       file: null,
+      errors: {
+        videoTitle: { err: false, msg: '' },
+        chanelTitle: { err: false, msg: '' },
+        date: { err: false, msg: '' },
+        select: { err: false, msg: '' },
+      },
     });
     this.form.current?.reset();
   }
@@ -123,7 +189,7 @@ class Form extends React.Component<Props, State> {
   }
 
   render() {
-    const { items, switcher, file } = this.state;
+    const { items, switcher, file, errors } = this.state;
     const { isOn } = switcher;
     const cardsList = items.map((card: YourCardProps) => {
       return (
@@ -153,8 +219,18 @@ class Form extends React.Component<Props, State> {
               file={file}
               handleChangeFile={this.handleChangeFile}
             />
-            <Input referance={this.videoTitle} labelText="Video Title" />
-            <Input referance={this.chanelTitle} labelText="Chanel Title" />
+            <Input
+              referance={this.videoTitle}
+              labelText="Video Title"
+              err={errors.videoTitle.err}
+              msg={errors.videoTitle.msg}
+            />
+            <Input
+              referance={this.chanelTitle}
+              labelText="Chanel Title"
+              err={errors.chanelTitle.err}
+              msg={errors.chanelTitle.msg}
+            />
             <DatePicker referance={this.date} />
             <Select referance={this.select} />
             <Switch

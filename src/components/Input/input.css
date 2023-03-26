@@ -86,3 +86,10 @@ input:-webkit-autofill:focus {
 .inp input:-webkit-autofill + .label {
   color: #bfafaf;
 }
+
+.error-block {
+  color: #d8000c;
+  background-color: #ffbaba;
+  margin-bottom: 20px;
+  padding: 6px 12px;
+}
