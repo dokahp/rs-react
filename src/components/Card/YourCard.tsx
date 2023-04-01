@@ -11,75 +11,67 @@ export interface YourCardProps {
   advertising: boolean;
 }
 
-class YourCard extends React.Component<YourCardProps, object> {
-  constructor(props: YourCardProps) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const {
-      file,
-      title,
-      channelTitle,
-      publishedAt,
-      videoType,
-      adultContent,
-      advertising,
-    } = this.props;
-    return (
-      <div className="card-wrapper">
-        <div className="card">
-          <div className="card-image-wrapper">
-            <img src={file} alt="video-title" className="card-image" />
+function YourCard({
+  file,
+  title,
+  channelTitle,
+  publishedAt,
+  videoType,
+  adultContent,
+  advertising,
+}: YourCardProps) {
+  return (
+    <div className="card-wrapper">
+      <div className="card">
+        <div className="card-image-wrapper">
+          <img src={file} alt="video-title" className="card-image" />
+        </div>
+        <div className="card-content-wrapper">
+          <div className="title">
+            {title.length > 73 ? `${title.slice(0, 73)}...` : title}
           </div>
-          <div className="card-content-wrapper">
-            <div className="title">
-              {title.length > 73 ? `${title.slice(0, 73)}...` : title}
+          <div className="channel-title">{channelTitle}</div>
+          <div className="published-at">
+            {new Date(publishedAt).toLocaleString('ru-Ru', {
+              second: undefined,
+              hour: 'numeric',
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit',
+              minute: '2-digit',
+            })}
+          </div>
+          <div className="chips-wrapper">
+            <div className="chip">
+              <img
+                src={
+                  videoType === 'Video'
+                    ? './assets/video.svg'
+                    : './assets/stream.svg'
+                }
+                alt="advertising"
+              />
+              <div className="chip-description">{videoType}</div>
             </div>
-            <div className="channel-title">{channelTitle}</div>
-            <div className="published-at">
-              {new Date(publishedAt).toLocaleString('ru-Ru', {
-                second: undefined,
-                hour: 'numeric',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                minute: '2-digit',
-              })}
-            </div>
-            <div className="chips-wrapper">
-              <div className="chip">
-                <img
-                  src={
-                    videoType === 'Video'
-                      ? './assets/video.svg'
-                      : './assets/stream.svg'
-                  }
-                  alt="advertising"
-                />
-                <div className="chip-description">{videoType}</div>
+            <div className="chip">
+              <img src="./assets/person.svg" alt="person" />
+              <div className="chip-description">
+                {!adultContent ? '18+' : '3+'}
               </div>
-              <div className="chip">
-                <img src="./assets/person.svg" alt="person" />
-                <div className="chip-description">
-                  {!adultContent ? '18+' : '3+'}
-                </div>
-              </div>
-              {advertising ? (
-                <div className="chip">
-                  <img src="./assets/advertising.svg" alt="advertising" />
-                  <div className="chip-description">Adv</div>
-                </div>
-              ) : (
-                ''
-              )}
             </div>
+            {advertising ? (
+              <div className="chip">
+                <img src="./assets/advertising.svg" alt="advertising" />
+                <div className="chip-description">Adv</div>
+              </div>
+            ) : (
+              ''
+            )}
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default YourCard;
