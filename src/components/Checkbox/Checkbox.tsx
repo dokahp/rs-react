@@ -8,33 +8,25 @@ interface Props {
   msg: string;
 }
 
-class Checkbox extends React.PureComponent<Props, object> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const { reference, description, err, msg } = this.props;
-    return (
-      <>
-        <label
-          htmlFor={description}
-          className="checkbox-label"
-          style={err ? { marginBottom: '5px' } : {}}
-        >
-          <input
-            id={description}
-            type="checkbox"
-            ref={reference}
-            className="checkbox-input"
-          />
-          {description}
-        </label>
-        {err ? <div className="error-block">{msg}</div> : ''}
-      </>
-    );
-  }
+function Checkbox({ reference, description, err, msg }: Props) {
+  return (
+    <>
+      <label
+        htmlFor={description}
+        className="checkbox-label"
+        style={err ? { marginBottom: '5px' } : {}}
+      >
+        <input
+          id={description}
+          type="checkbox"
+          ref={reference}
+          className="checkbox-input"
+        />
+        {description}
+      </label>
+      {err ? <div className="error-block">{msg}</div> : ''}
+    </>
+  );
 }
 
 export default Checkbox;
