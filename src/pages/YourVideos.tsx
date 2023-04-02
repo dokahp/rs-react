@@ -1,134 +1,108 @@
-import React from 'react';
+import React, { useState } from 'react';
 import YourCard, { YourCardProps } from '../components/Card/YourCard';
 import Form from '../components/Form/Form';
 import Snackbar from '../components/Snackbar/Snackbar';
-import { YourVideosState } from './interfaces/yourVideos.interface';
 
-type Props = object;
+import {
+  IErrors,
+  ISnackbar,
+  ISwitcher,
+} from './interfaces/yourVideos.interface';
 
-class YourVideos extends React.PureComponent<Props, YourVideosState> {
-  form: React.RefObject<HTMLFormElement> = React.createRef();
+function YourVideos() {
+  const [items, setItems] = useState<YourCardProps[]>([]);
+  const [snackbar, setSnackbar] = useState<ISnackbar>({
+    text: '',
+    className: '',
+  });
+  const [fileURL, setFileURL] = useState<null | string>(null);
+  const [switcher, setSwitcher] = useState<ISwitcher>({ isOn: false });
+  const [errors, setErrors] = useState<IErrors>({
+    file: { err: false, msg: '' },
+    videoTitle: { err: false, msg: '' },
+    chanelTitle: { err: false, msg: '' },
+    date: { err: false, msg: '' },
+    select: { err: false, msg: '' },
+    terms: { err: false, msg: '' },
+  });
 
-  videoTitle: React.RefObject<HTMLInputElement> = React.createRef();
+  const form: React.RefObject<HTMLFormElement> = React.createRef();
+  const videoTitle: React.RefObject<HTMLInputElement> = React.createRef();
+  const chanelTitle: React.RefObject<HTMLInputElement> = React.createRef();
+  const date: React.RefObject<HTMLInputElement> = React.createRef();
+  const select: React.RefObject<HTMLSelectElement> = React.createRef();
+  const fileRef: React.RefObject<HTMLInputElement> = React.createRef();
+  const switchElem: React.RefObject<HTMLInputElement> = React.createRef();
+  const termsCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
+  const advCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
+  const notificationCheckbox: React.RefObject<HTMLInputElement> =
+    React.createRef();
 
-  chanelTitle: React.RefObject<HTMLInputElement> = React.createRef();
-
-  date: React.RefObject<HTMLInputElement> = React.createRef();
-
-  select: React.RefObject<HTMLSelectElement> = React.createRef();
-
-  file: React.RefObject<HTMLInputElement> = React.createRef();
-
-  switchElem: React.RefObject<HTMLInputElement> = React.createRef();
-
-  termsCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
-
-  advCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
-
-  notificationCheckbox: React.RefObject<HTMLInputElement> = React.createRef();
-
-  constructor(props: Props) {
-    super(props);
-    this.handleSwitch = this.handleSwitch.bind(this);
-    this.handleChangeFile = this.handleChangeFile.bind(this);
-    this.handleFormValidation = this.handleFormValidation.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleFormReset = this.handleFormReset.bind(this);
-    this.state = {
-      items: [],
-      switcher: { isOn: false },
-      file: null,
-      errors: {
-        file: { err: false, msg: '' },
-        videoTitle: { err: false, msg: '' },
-        chanelTitle: { err: false, msg: '' },
-        date: { err: false, msg: '' },
-        select: { err: false, msg: '' },
-        terms: { err: false, msg: '' },
-      },
-      snackbar: { text: '', className: '' },
-    };
-  }
-
-  handleFormSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
-    const file = this.file.current?.files?.length
-      ? this.file.current?.files[0]
-      : null;
-    const adultContent = this.switchElem.current
-      ? this.switchElem.current?.checked
-      : false;
-    const advertising = this.advCheckbox.current
-      ? this.advCheckbox.current?.checked
-      : false;
-    const notification = this.notificationCheckbox.current
-      ? this.notificationCheckbox.current.checked
-      : false;
-
-    this.setState({
-      errors: {
-        file: { err: false, msg: '' },
-        videoTitle: { err: false, msg: '' },
-        chanelTitle: { err: false, msg: '' },
-        date: { err: false, msg: '' },
-        select: { err: false, msg: '' },
-        terms: { err: false, msg: '' },
-      },
+  const resetErrors = () => {
+    setErrors({
+      file: { err: false, msg: '' },
+      videoTitle: { err: false, msg: '' },
+      chanelTitle: { err: false, msg: '' },
+      date: { err: false, msg: '' },
+      select: { err: false, msg: '' },
+      terms: { err: false, msg: '' },
     });
-    const isFormValid = this.handleFormValidation();
-    if (!isFormValid) {
-      return {};
-    }
-    this.setState(
-      (state: YourVideosState) => ({
-        items: [
-          ...state.items,
-          {
-            file: file
-              ? URL.createObjectURL(file).toString()
-              : './assets/no-image.png',
-            title: `${this.videoTitle.current?.value}`,
-            channelTitle: `${this.chanelTitle.current?.value}`,
-            publishedAt: `${this.date.current?.value}`,
-            videoType: `${this.select.current?.value}`,
-            adultContent,
-            advertising,
-          },
-        ],
-      }),
-      () => this.handleFormReset()
-    );
-    if (notification) {
-      this.showSnackbar('Video added. Notification sent');
-    } else {
-      this.showSnackbar(`Video added.`);
-    }
-    return {};
-  }
+  };
 
-  handleFormValidation(): boolean {
+  const handleFormReset = () => {
+    setSwitcher({ isOn: false });
+    setFileURL(null);
+    resetErrors();
+    form.current?.reset();
+  };
+
+  const handleSwitch = () => {
+    setSwitcher({ isOn: !switcher.isOn });
+  };
+
+  const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault();
+    if (!event.target.files || !event.target.files.length) {
+      return setFileURL(null);
+    }
+    return setFileURL(
+      event.target.files
+        ? URL.createObjectURL(event.target.files[0]).toString()
+        : null
+    );
+  };
+
+  const showSnackbar = (text: string) => {
+    const className = 'show';
+    setSnackbar({ text, className });
+
+    setTimeout(() => {
+      setSnackbar({ text: '', className: '' });
+    }, 4000);
+  };
+
+  const handleFormValidation = (): boolean => {
     let isFormValid = true;
-    const { file } = this.state;
-    if (file === null) {
-      this.setState((state: YourVideosState) => ({
-        errors: {
-          ...state.errors,
-          file: { err: true, msg: 'You must upload an image' },
-        },
-      }));
+
+    if (fileURL === null) {
+      setErrors({
+        ...errors,
+        file: { err: true, msg: 'You must upload an image' },
+      });
+
       isFormValid = false;
     }
     if (
-      this.videoTitle.current &&
-      this.chanelTitle.current &&
-      this.date.current &&
-      this.select.current &&
-      this.termsCheckbox.current
+      videoTitle.current &&
+      chanelTitle.current &&
+      date.current &&
+      select.current &&
+      termsCheckbox.current
     ) {
       const validationEl = [
-        this.videoTitle.current,
-        this.chanelTitle.current,
-        this.date.current,
+        videoTitle.current,
+        chanelTitle.current,
+        date.current,
       ];
       validationEl.map((el: HTMLInputElement) => {
         if (
@@ -138,152 +112,146 @@ class YourVideos extends React.PureComponent<Props, YourVideosState> {
           /^\d+$/.test(el.value)
         ) {
           const { name } = el;
-          this.setState((state: YourVideosState) => ({
-            errors: {
-              ...state.errors,
-              [name]: { err: true, msg: "Can't contain only numbers" },
-            },
-          }));
+          setErrors({
+            ...errors,
+            [name]: { err: true, msg: "Can't contain only numbers" },
+          });
           isFormValid = false;
         }
         if (el.value && el.value.length < 6 && el.name !== 'date') {
           const { name } = el;
-          this.setState((state: YourVideosState) => ({
-            errors: {
-              ...state.errors,
-              [name]: { err: true, msg: 'Minimum 6 characters required' },
-            },
-          }));
+          setErrors({
+            ...errors,
+            [name]: { err: true, msg: 'Minimum 6 characters required' },
+          });
           isFormValid = false;
         }
         if (!el.value) {
           const { name } = el;
-          this.setState((state: YourVideosState) => ({
-            errors: {
-              ...state.errors,
-              [name]: { err: true, msg: 'Required field' },
-            },
-          }));
+          setErrors({
+            ...errors,
+            [name]: { err: true, msg: 'Required field' },
+          });
           isFormValid = false;
         }
         return el;
       });
 
-      if (this.select.current.value === 'default') {
-        this.setState((state: YourVideosState) => ({
-          errors: {
-            ...state.errors,
-            select: { err: true, msg: 'Select video type' },
-          },
-        }));
+      if (select.current.value === 'default') {
+        setErrors({
+          ...errors,
+          select: { err: true, msg: 'Select video type' },
+        });
         isFormValid = false;
       }
-      if (!this.termsCheckbox.current.checked) {
-        this.setState((state: YourVideosState) => ({
-          errors: {
-            ...state.errors,
-            terms: { err: true, msg: 'Your should accept terms of usage' },
-          },
-        }));
+      if (!termsCheckbox.current.checked) {
+        setErrors({
+          ...errors,
+          terms: { err: true, msg: 'Your should accept terms of usage' },
+        });
         isFormValid = false;
       }
     }
+
     return isFormValid;
-  }
+  };
 
-  handleFormReset() {
-    this.setState({
-      switcher: { isOn: false },
-      file: null,
-      errors: {
-        file: { err: false, msg: '' },
-        videoTitle: { err: false, msg: '' },
-        chanelTitle: { err: false, msg: '' },
-        date: { err: false, msg: '' },
-        select: { err: false, msg: '' },
-        terms: { err: false, msg: '' },
-      },
-    });
-    this.form.current?.reset();
-  }
-
-  handleSwitch() {
-    this.setState((state: YourVideosState) => ({
-      switcher: { isOn: !state.switcher.isOn },
-    }));
-  }
-
-  handleChangeFile(event: React.ChangeEvent<HTMLInputElement>) {
+  const handleFormSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
-    if (!event.target.files || !event.target.files.length) {
-      return this.setState({
-        file: null,
-      });
+    const fileEl = fileRef.current?.files?.length
+      ? fileRef.current?.files[0]
+      : null;
+    const adultContent = switchElem.current
+      ? switchElem.current?.checked
+      : false;
+    const advertising = advCheckbox.current
+      ? advCheckbox.current?.checked
+      : false;
+    const notification = notificationCheckbox.current
+      ? notificationCheckbox.current.checked
+      : false;
+
+    resetErrors();
+
+    const isFormValid = handleFormValidation();
+    if (!isFormValid) {
+      return {};
     }
-    return this.setState({
-      file: event.target.files
-        ? URL.createObjectURL(event.target.files[0]).toString()
-        : null,
-    });
-  }
+    setItems([
+      ...items,
+      {
+        file: fileEl
+          ? URL.createObjectURL(fileEl).toString()
+          : './assets/no-image.png',
+        title: `${videoTitle.current?.value}`,
+        channelTitle: `${chanelTitle.current?.value}`,
+        publishedAt: `${date.current?.value}`,
+        videoType: `${select.current?.value}`,
+        adultContent,
+        advertising,
+      },
+    ]);
 
-  showSnackbar(text: string) {
-    const className = 'show';
-    this.setState({
-      snackbar: { text, className },
-    });
-    setTimeout(() => {
-      this.setState({
-        snackbar: { text: '', className: '' },
-      });
-    }, 4000);
-  }
+    handleFormReset();
 
-  render() {
-    const { items, switcher, file, errors, snackbar } = this.state;
-    const cardsList = items.map((card: YourCardProps) => {
-      return (
-        <YourCard
-          key={`${new Date().getTime()}${JSON.stringify(card)}`}
-          file={card.file}
-          title={card.title}
-          channelTitle={card.channelTitle}
-          publishedAt={card.publishedAt}
-          videoType={card.videoType}
-          adultContent={card.adultContent}
-          advertising={card.advertising}
-        />
-      );
-    });
+    if (notification) {
+      showSnackbar('Video added. Notification sent');
+    } else {
+      showSnackbar(`Video added.`);
+    }
+    return {};
+  };
+
+  // useEffect(() => {
+  //   if (items) {
+  //     handleFormReset();
+  //   }
+  // }, [items]);
+
+  // const { items, switcher, file, errors, snackbar } = state;
+
+  const cardsList = items.map((card: YourCardProps) => {
     return (
-      <>
-        <Form
-          references={{
-            formRef: this.form,
-            videoTitleRef: this.videoTitle,
-            chanelTitleRef: this.chanelTitle,
-            dateRef: this.date,
-            selectRef: this.select,
-            fileRef: this.file,
-            switchElemRef: this.switchElem,
-            termsCheckboxRef: this.termsCheckbox,
-            advCheckboxRef: this.advCheckbox,
-            notificationCheckboxRef: this.notificationCheckbox,
-          }}
-          switcher={switcher}
-          file={file}
-          errors={errors}
-          handleFormSubmit={this.handleFormSubmit}
-          handleChangeFile={this.handleChangeFile}
-          handleSwitch={this.handleSwitch}
-        />
-        <div className="main-wrapper">
-          <div className="cards-wrapper">{cardsList}</div>
-        </div>
-        <Snackbar text={snackbar.text} className={snackbar.className} />
-      </>
+      <YourCard
+        key={`${new Date().getTime()}${JSON.stringify(card)}`}
+        file={card.file}
+        title={card.title}
+        channelTitle={card.channelTitle}
+        publishedAt={card.publishedAt}
+        videoType={card.videoType}
+        adultContent={card.adultContent}
+        advertising={card.advertising}
+      />
     );
-  }
+  });
+  return (
+    <>
+      <Form
+        references={{
+          formRef: form,
+          videoTitleRef: videoTitle,
+          chanelTitleRef: chanelTitle,
+          dateRef: date,
+          selectRef: select,
+          fileRef,
+          switchElemRef: switchElem,
+          termsCheckboxRef: termsCheckbox,
+          advCheckboxRef: advCheckbox,
+          notificationCheckboxRef: notificationCheckbox,
+        }}
+        switcher={switcher}
+        file={fileURL}
+        errors={errors}
+        handleFormSubmit={handleFormSubmit}
+        handleChangeFile={handleChangeFile}
+        handleSwitch={handleSwitch}
+      />
+      <div className="main-wrapper">
+        <div className="cards-wrapper">{cardsList}</div>
+      </div>
+      <Snackbar text={snackbar.text} className={snackbar.className} />
+    </>
+  );
 }
 
 export default YourVideos;
