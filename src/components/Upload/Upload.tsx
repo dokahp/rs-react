@@ -1,31 +1,35 @@
 import React from 'react';
 import './upload.css';
+import { useFormContext } from 'react-hook-form';
 
 interface Props {
-  reference: React.RefObject<HTMLInputElement>;
   file: string | null;
   handleChangeFile: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  err: boolean;
-  msg: string;
+  // err: boolean;
+  // msg: string;
 }
 
-function Upload({ reference, file, handleChangeFile, err, msg }: Props) {
+function Upload({ file, handleChangeFile }: Props) {
   const label: React.RefObject<HTMLLabelElement> = React.createRef();
 
   const uploadButtonClick = () => {
     label.current?.click();
   };
 
+  const { register, formState } = useFormContext();
+  const { errors } = formState;
   return (
     <>
       <div
         className="file-upload-wrapper"
-        style={err ? { marginBottom: '5px' } : {}}
+        style={errors.file ? { marginBottom: '5px' } : {}}
       >
         <input
-          name="file-upload"
-          ref={reference}
+          // name="file-upload"
           type="file"
+          {...register('file', {
+            required: { value: true, message: 'You must upload an image' },
+          })}
           id="input-file-upload"
           onChange={handleChangeFile}
           accept="image/png, image/jpg, image/gif, image/jpeg"
@@ -35,7 +39,7 @@ function Upload({ reference, file, handleChangeFile, err, msg }: Props) {
           id="label-file-upload"
           htmlFor="input-file-upload"
           ref={label}
-          style={err ? { border: '3px dashed rgb(216, 0, 12)' } : {}}
+          style={errors.file ? { border: '3px dashed rgb(216, 0, 12)' } : {}}
         >
           <div className="image-wrapper">
             <img
@@ -54,7 +58,9 @@ function Upload({ reference, file, handleChangeFile, err, msg }: Props) {
           </div>
         </label>
       </div>
-      {err ? <div className="error-block">{msg}</div> : ''}
+      {errors.file && (
+        <div className="error-block">{errors.file.message?.toString()}</div>
+      )}
     </>
   );
 }

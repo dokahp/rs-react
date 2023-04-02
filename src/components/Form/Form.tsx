@@ -7,95 +7,70 @@ import SubmitBtn from '../SubmitBtn/SubmitBtn';
 import Switch from '../Switch/Switch';
 import Upload from '../Upload/Upload';
 import './form.css';
-import { FormProps } from './interfaces/form.interface';
+import { HookFormProps } from './interfaces/form.interface';
 
 function Form({
-  references,
   switcher,
   file,
-  errors,
   handleFormSubmit,
   handleChangeFile,
   handleSwitch,
-}: FormProps) {
+}: HookFormProps) {
   const { isOn } = switcher;
-  const {
-    formRef,
-    fileRef,
-    videoTitleRef,
-    chanelTitleRef,
-    dateRef,
-    selectRef,
-    switchElemRef,
-    termsCheckboxRef,
-    advCheckboxRef,
-    notificationCheckboxRef,
-  } = references;
 
   return (
     <div className="form-wrapper">
-      <form
-        className="form"
-        onSubmit={handleFormSubmit}
-        autoComplete="off"
-        ref={formRef}
-      >
+      <form className="form" onSubmit={handleFormSubmit} autoComplete="off">
         <Upload
-          reference={fileRef}
           file={file}
           handleChangeFile={handleChangeFile}
-          err={errors.file.err}
-          msg={errors.file.msg}
+          // err={errors.file.err}
+          // msg={errors.file.msg}
         />
+
         <Input
-          reference={videoTitleRef}
           labelText="Video Title"
           name="videoTitle"
-          err={errors.videoTitle.err}
-          msg={errors.videoTitle.msg}
+
+          // err={errors.videoTitle.err}
+          // msg={errors.videoTitle.msg}
         />
         <Input
-          reference={chanelTitleRef}
           labelText="Chanel Title"
           name="chanelTitle"
-          err={errors.chanelTitle.err}
-          msg={errors.chanelTitle.msg}
+          // err={errors.chanelTitle.err}
+          // msg={errors.chanelTitle.msg}
         />
         <DatePicker
-          referance={dateRef}
           name="date"
-          err={errors.date.err}
-          msg={errors.date.msg}
+          // err={errors.date.err} msg={errors.date.msg}
         />
         <Select
-          referance={selectRef}
           name="select"
-          err={errors.select.err}
-          msg={errors.select.msg}
+          // err={errors.select.err} msg={errors.select.msg}
         />
         <Switch
-          reference={switchElemRef}
           name="react-switch-new"
           isOn={isOn}
           handleSwitch={handleSwitch}
         />
         <Checkbox
-          reference={termsCheckboxRef}
+          name="terms"
           description="I accept terms of usage*"
-          err={errors.terms.err}
-          msg={errors.terms.msg}
+          // err={errors.terms.err}
+          // msg={errors.terms.msg}
         />
         <Checkbox
-          reference={advCheckboxRef}
+          name="advertising"
           description="Video contains direct advertising"
-          err={false}
-          msg=""
+          // err={false}
+          // msg=""
         />
         <Checkbox
-          reference={notificationCheckboxRef}
+          name="notification"
           description="Send a notification to subscribers"
-          err={false}
-          msg=""
+          // err={false}
+          // msg=""
         />
         <div
           style={{

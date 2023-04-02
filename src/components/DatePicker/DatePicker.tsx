@@ -1,14 +1,16 @@
 import React from 'react';
 import './datePicker.css';
+import { useFormContext } from 'react-hook-form';
 
 interface Props {
-  referance: React.RefObject<HTMLInputElement>;
   name: string;
-  err: boolean;
-  msg: string;
+  // err: boolean;
+  // msg: string;
 }
 
-function DatePicker({ referance, name, err, msg }: Props) {
+function DatePicker({ name }: Props) {
+  const { register, formState } = useFormContext();
+  const { errors } = formState;
   return (
     <div className="datepicker-wrapper">
       <span className="label">
@@ -16,14 +18,19 @@ function DatePicker({ referance, name, err, msg }: Props) {
       </span>
       <input
         type="datetime-local"
-        name={name}
-        ref={referance}
         className="datepicker"
+        {...register(name, {
+          required: { value: true, message: 'Publish date is required' },
+        })}
         style={
-          err ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' } : {}
+          errors[name]
+            ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' }
+            : {}
         }
       />
-      {err ? <div className="error-block">{msg}</div> : ''}
+      {errors[name] && (
+        <div className="error-block">{errors[name]?.message?.toString()}</div>
+      )}
     </div>
   );
 }

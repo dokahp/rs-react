@@ -1,22 +1,24 @@
 import React from 'react';
 import './switch.css';
+import { useFormContext } from 'react-hook-form';
 
 interface Props {
   name: string;
-  reference: React.RefObject<HTMLInputElement>;
   isOn: boolean;
   handleSwitch: () => void;
 }
 
-function Switch({ reference, name, isOn, handleSwitch }: Props) {
+function Switch({ name, isOn, handleSwitch }: Props) {
+  const { register } = useFormContext();
+
   return (
     <label
       htmlFor="react-switch-new"
       className="label"
       style={{ display: 'flex', alignItems: 'center' }}
+      {...register(name)}
     >
       <input
-        ref={reference}
         name={name}
         onChange={handleSwitch}
         className="react-switch-checkbox"

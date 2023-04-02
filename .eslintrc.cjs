@@ -20,7 +20,7 @@ module.exports = {
     project: './tsconfig.json',
     tsconfigRootDir: __dirname,
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'prettier', 'import'],
   rules: {
     'react/react-in-jsx-scope': 0,
     'jsx-a11y/label-has-associated-control': [
@@ -32,5 +32,15 @@ module.exports = {
       },
     ],
     'react/no-array-index-key': 0,
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        optionalDependencies: false,
+        peerDependencies: false,
+        devDependencies: true,
+        packageDir: __dirname,
+      },
+    ],
+    'react/jsx-props-no-spreading': 'off',
   },
 };

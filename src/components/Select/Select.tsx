@@ -1,32 +1,38 @@
 import React from 'react';
 import './select.css';
+import { useFormContext } from 'react-hook-form';
 
 interface Props {
-  referance: React.RefObject<HTMLSelectElement>;
   name: string;
-  err: boolean;
-  msg: string;
 }
 
-function Select({ referance, name, err, msg }: Props) {
+function Select({ name }: Props) {
+  const { register, formState } = useFormContext();
+  const { errors } = formState;
+
   return (
     <>
       <select
         className="select"
-        defaultValue="default"
-        name={name}
-        ref={referance}
+        defaultValue=""
+        {...register(name, {
+          required: { value: true, message: 'Select video type' },
+        })}
         style={
-          err ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' } : {}
+          errors[name]
+            ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' }
+            : {}
         }
       >
         <option value="Video">Video</option>
         <option value="Stream">Stream</option>
-        <option value="default" hidden>
+        <option value="" hidden>
           Select video type*
         </option>
       </select>
-      {err ? <div className="error-block">{msg}</div> : ''}
+      {errors[name] && (
+        <div className="error-block">{errors[name]?.message?.toString()}</div>
+      )}
     </>
   );
 }
