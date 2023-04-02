@@ -3,7 +3,7 @@ import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
 import YourCard, { YourCardProps } from '../components/Card/YourCard';
 import Snackbar from '../components/Snackbar/Snackbar';
 import { Inputs } from '../components/Form/interfaces/form.interface';
-import { ISnackbar, ISwitcher } from './interfaces/yourVideos.interface';
+import { ISnackbar } from './interfaces/yourVideos.interface';
 import Form from '../components/Form/Form';
 
 function YourVideos() {
@@ -14,11 +14,6 @@ function YourVideos() {
     className: '',
   });
   const [fileURL, setFileURL] = useState<null | string>(null);
-  const [switcher, setSwitcher] = useState<ISwitcher>({ isOn: false });
-
-  const handleSwitch = () => {
-    setSwitcher({ isOn: !switcher.isOn });
-  };
 
   const handleChangeFile = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -60,7 +55,6 @@ function YourVideos() {
       showSnackbar(`Video added.`);
     }
     setFileURL(null);
-    setSwitcher({ isOn: false });
     methods.reset();
   };
 
@@ -83,11 +77,9 @@ function YourVideos() {
     <>
       <FormProvider {...methods}>
         <Form
-          switcher={switcher}
           file={fileURL}
           handleFormSubmit={methods.handleSubmit(onSubmit)}
           handleChangeFile={handleChangeFile}
-          handleSwitch={handleSwitch}
         />
       </FormProvider>
       <div className="main-wrapper">

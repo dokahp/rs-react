@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './switch.css';
 import { useFormContext } from 'react-hook-form';
 
 interface Props {
   name: string;
-  isOn: boolean;
-  handleSwitch: () => void;
 }
 
-function Switch({ name, isOn, handleSwitch }: Props) {
-  const { register } = useFormContext();
+function Switch({ name }: Props) {
+  const { register, formState } = useFormContext();
+  const { submitCount } = formState;
+  const [switcher, setSwitcher] = useState<boolean>(false);
+
+  const handleSwitch = () => {
+    setSwitcher(!switcher);
+  };
+
+  useEffect(() => {
+    setSwitcher(false);
+  }, [submitCount]);
 
   return (
     <label
@@ -26,13 +34,13 @@ function Switch({ name, isOn, handleSwitch }: Props) {
         type="checkbox"
       />
       <label
-        style={{ backgroundColor: isOn ? '#06D6A0' : '#808080' }}
+        style={{ backgroundColor: switcher ? '#06D6A0' : '#808080' }}
         className="react-switch-label"
         htmlFor="react-switch-new"
       >
         <span className="react-switch-button" />
       </label>
-      {isOn ? (
+      {switcher ? (
         <div className="description">Yes, this video is for kids.</div>
       ) : (
         <div className="description">No, this video is not for children.</div>

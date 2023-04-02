@@ -9,15 +9,7 @@ import Upload from '../Upload/Upload';
 import './form.css';
 import { HookFormProps } from './interfaces/form.interface';
 
-function Form({
-  switcher,
-  file,
-  handleFormSubmit,
-  handleChangeFile,
-  handleSwitch,
-}: HookFormProps) {
-  const { isOn } = switcher;
-
+function Form({ file, handleFormSubmit, handleChangeFile }: HookFormProps) {
   return (
     <div className="form-wrapper">
       <form className="form" onSubmit={handleFormSubmit} autoComplete="off">
@@ -27,7 +19,7 @@ function Form({
         <Input labelText="Chanel Title" name="chanelTitle" />
         <DatePicker name="date" />
         <Select name="select" />
-        <Switch name="adult" isOn={isOn} handleSwitch={handleSwitch} />
+        <Switch name="adult" />
         <Checkbox name="terms" description="I accept terms of usage*" />
         <Checkbox
           name="advertising"
