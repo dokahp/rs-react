@@ -5,8 +5,6 @@ import { useFormContext } from 'react-hook-form';
 interface Props {
   name: string;
   description: string;
-  // err: boolean;
-  // msg: string;
 }
 
 function Checkbox({ name, description }: Props) {

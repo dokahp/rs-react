@@ -5,8 +5,6 @@ import { useFormContext } from 'react-hook-form';
 interface Props {
   labelText: string;
   name: string;
-  // err: boolean;
-  // msg: string;
 }
 
 function Input({ labelText, name }: Props) {

@@ -21,56 +21,21 @@ function Form({
   return (
     <div className="form-wrapper">
       <form className="form" onSubmit={handleFormSubmit} autoComplete="off">
-        <Upload
-          file={file}
-          handleChangeFile={handleChangeFile}
-          // err={errors.file.err}
-          // msg={errors.file.msg}
-        />
+        <Upload file={file} handleChangeFile={handleChangeFile} />
 
-        <Input
-          labelText="Video Title"
-          name="videoTitle"
-
-          // err={errors.videoTitle.err}
-          // msg={errors.videoTitle.msg}
-        />
-        <Input
-          labelText="Chanel Title"
-          name="chanelTitle"
-          // err={errors.chanelTitle.err}
-          // msg={errors.chanelTitle.msg}
-        />
-        <DatePicker
-          name="date"
-          // err={errors.date.err} msg={errors.date.msg}
-        />
-        <Select
-          name="select"
-          // err={errors.select.err} msg={errors.select.msg}
-        />
-        <Switch
-          name="react-switch-new"
-          isOn={isOn}
-          handleSwitch={handleSwitch}
-        />
-        <Checkbox
-          name="terms"
-          description="I accept terms of usage*"
-          // err={errors.terms.err}
-          // msg={errors.terms.msg}
-        />
+        <Input labelText="Video Title" name="videoTitle" />
+        <Input labelText="Chanel Title" name="chanelTitle" />
+        <DatePicker name="date" />
+        <Select name="select" />
+        <Switch name="adult" isOn={isOn} handleSwitch={handleSwitch} />
+        <Checkbox name="terms" description="I accept terms of usage*" />
         <Checkbox
           name="advertising"
           description="Video contains direct advertising"
-          // err={false}
-          // msg=""
         />
         <Checkbox
           name="notification"
           description="Send a notification to subscribers"
-          // err={false}
-          // msg=""
         />
         <div
           style={{

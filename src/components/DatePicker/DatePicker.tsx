@@ -4,8 +4,6 @@ import { useFormContext } from 'react-hook-form';
 
 interface Props {
   name: string;
-  // err: boolean;
-  // msg: string;
 }
 
 function DatePicker({ name }: Props) {

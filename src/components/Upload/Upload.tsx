@@ -5,8 +5,6 @@ import { useFormContext } from 'react-hook-form';
 interface Props {
   file: string | null;
   handleChangeFile: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  // err: boolean;
-  // msg: string;
 }
 
 function Upload({ file, handleChangeFile }: Props) {
@@ -25,7 +23,6 @@ function Upload({ file, handleChangeFile }: Props) {
         style={errors.file ? { marginBottom: '5px' } : {}}
       >
         <input
-          // name="file-upload"
           type="file"
           {...register('file', {
             required: { value: true, message: 'You must upload an image' },

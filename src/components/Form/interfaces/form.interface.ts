@@ -40,6 +40,7 @@ export type Inputs = {
   date: string;
   select: string;
   terms: boolean;
+  adult: boolean;
   advertising: boolean;
   notification: boolean;
 };
