@@ -4,7 +4,7 @@ import { ReactComponent as Loop } from './loop.svg';
 
 function Search() {
   const [searchValue, setSearchValue] = useState(
-    localStorage.getItem('search-value') || ''
+    () => localStorage.getItem('search-value') || ''
   );
 
   useEffect(() => {
