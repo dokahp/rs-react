@@ -3,14 +3,12 @@ import './search.css';
 import { ReactComponent as Loop } from './loop.svg';
 
 function Search() {
-  const [searchValue, setSearchValue] = useState('');
+  const [searchValue, setSearchValue] = useState(
+    localStorage.getItem('search-value') || ''
+  );
 
   useEffect(() => {
-    const localStorageValue = localStorage.getItem('search-value');
-    if (localStorageValue && localStorageValue.length > searchValue.length) {
-      setSearchValue(localStorageValue);
-    }
-    return function cleanup() {
+    return () => {
       localStorage.setItem('search-value', searchValue);
     };
   }, [searchValue]);

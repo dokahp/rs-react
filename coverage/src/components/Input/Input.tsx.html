@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.61% </span>
+                <span class="strong">22% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/52</span>
+                <span class='fraction'>11/50</span>
             </div>
         
             
@@ -39,14 +39,14 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/2</span>
+                <span class='fraction'>0/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">34.61% </span>
+                <span class="strong">22% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>18/52</span>
+                <span class='fraction'>11/50</span>
             </div>
         
             
@@ -113,9 +113,7 @@
 <a name='L48'></a><a href='#L48'>48</a>
 <a name='L49'></a><a href='#L49'>49</a>
 <a name='L50'></a><a href='#L50'>50</a>
-<a name='L51'></a><a href='#L51'>51</a>
-<a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L51'></a><a href='#L51'>51</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -124,15 +122,6 @@
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -164,59 +153,64 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
 import './input.css';
+import { useFormContext } from 'react-hook-form';
 &nbsp;
 interface Props {
-  reference: React.RefObject&lt;HTMLInputElement&gt;;
   labelText: string;
   name: string;
-  err: boolean;
-  msg: string;
 }
 &nbsp;
-class Input extends React.PureComponent&lt;Props, object&gt; {
-<span class="fstat-no" title="function not covered" >  constructor(props: Props) {</span>
-<span class="cstat-no" title="statement not covered" >    super(props);</span>
-<span class="cstat-no" title="statement not covered" >    this.state = {};</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-&nbsp;
-<span class="fstat-no" title="function not covered" >  render() {</span>
-<span class="cstat-no" title="statement not covered" >    const { labelText, name, reference, err, msg } = this.props;</span>
-<span class="cstat-no" title="statement not covered" ></span>
-<span class="cstat-no" title="statement not covered" >    return (</span>
-<span class="cstat-no" title="statement not covered" >      &lt;&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;label</span>
-<span class="cstat-no" title="statement not covered" >          htmlFor="inp"</span>
-<span class="cstat-no" title="statement not covered" >          className="inp"</span>
-<span class="cstat-no" title="statement not covered" >          style={</span>
-<span class="cstat-no" title="statement not covered" >            err</span>
-<span class="cstat-no" title="statement not covered" >              ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' }</span>
-<span class="cstat-no" title="statement not covered" >              : {}</span>
-<span class="cstat-no" title="statement not covered" >          }</span>
-<span class="cstat-no" title="statement not covered" >        &gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;input</span>
-<span class="cstat-no" title="statement not covered" >            ref={reference}</span>
-<span class="cstat-no" title="statement not covered" >            autoComplete="new-password"</span>
-<span class="cstat-no" title="statement not covered" >            type="text"</span>
-<span class="cstat-no" title="statement not covered" >            id="inp"</span>
-<span class="cstat-no" title="statement not covered" >            name={name}</span>
-<span class="cstat-no" title="statement not covered" >            placeholder="&amp;nbsp;"</span>
-<span class="cstat-no" title="statement not covered" >          /&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;span className="label"&gt;</span>
-<span class="cstat-no" title="statement not covered" >            {labelText}</span>
-<span class="cstat-no" title="statement not covered" >            &lt;sup&gt;*&lt;/sup&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;/span&gt;</span>
-<span class="cstat-no" title="statement not covered" >          &lt;span className="focus-bg" /&gt;</span>
-<span class="cstat-no" title="statement not covered" >        &lt;/label&gt;</span>
-<span class="cstat-no" title="statement not covered" >        {err ? &lt;div className="error-block"&gt;{msg}&lt;/div&gt; : ''}</span>
-<span class="cstat-no" title="statement not covered" >      &lt;/&gt;</span>
-<span class="cstat-no" title="statement not covered" >    );</span>
-<span class="cstat-no" title="statement not covered" >  }</span>
-}
+<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >function Input({ labelText, name }: Props) {</span></span>
+<span class="cstat-no" title="statement not covered" >  const { register, formState } = useFormContext();</span>
+<span class="cstat-no" title="statement not covered" >  const { errors } = formState;</span>
+<span class="cstat-no" title="statement not covered" >  return (</span>
+<span class="cstat-no" title="statement not covered" >    &lt;&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;label</span>
+<span class="cstat-no" title="statement not covered" >        htmlFor="inp"</span>
+<span class="cstat-no" title="statement not covered" >        className="inp"</span>
+<span class="cstat-no" title="statement not covered" >        style={</span>
+<span class="cstat-no" title="statement not covered" >          errors[name]</span>
+<span class="cstat-no" title="statement not covered" >            ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' }</span>
+<span class="cstat-no" title="statement not covered" >            : {}</span>
+<span class="cstat-no" title="statement not covered" >        }</span>
+<span class="cstat-no" title="statement not covered" >      &gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;input</span>
+<span class="cstat-no" title="statement not covered" >          autoComplete="new-password"</span>
+<span class="cstat-no" title="statement not covered" >          type="text"</span>
+<span class="cstat-no" title="statement not covered" >          id="inp"</span>
+<span class="cstat-no" title="statement not covered" >          {...register(name, {</span>
+<span class="cstat-no" title="statement not covered" >            required: `${labelText} is required`,</span>
+<span class="cstat-no" title="statement not covered" >            minLength: {</span>
+<span class="cstat-no" title="statement not covered" >              value: 6,</span>
+<span class="cstat-no" title="statement not covered" >              message: `${labelText} must be greater than 6 symbols`,</span>
+<span class="cstat-no" title="statement not covered" >            },</span>
+<span class="cstat-no" title="statement not covered" >          })}</span>
+<span class="cstat-no" title="statement not covered" >          placeholder="&amp;nbsp;"</span>
+<span class="cstat-no" title="statement not covered" >        /&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;span className="label"&gt;</span>
+<span class="cstat-no" title="statement not covered" >          {labelText}</span>
+<span class="cstat-no" title="statement not covered" >          &lt;sup&gt;*&lt;/sup&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;/span&gt;</span>
+<span class="cstat-no" title="statement not covered" >        &lt;span className="focus-bg" /&gt;</span>
+<span class="cstat-no" title="statement not covered" >      &lt;/label&gt;</span>
+<span class="cstat-no" title="statement not covered" >      {errors[name] &amp;&amp; (</span>
+<span class="cstat-no" title="statement not covered" >        &lt;div className="error-block"&gt;{errors[name]?.message?.toString()}&lt;/div&gt;</span>
+<span class="cstat-no" title="statement not covered" >      )}</span>
+<span class="cstat-no" title="statement not covered" >    &lt;/&gt;</span>
+<span class="cstat-no" title="statement not covered" >  );</span>
+<span class="cstat-no" title="statement not covered" >}</span>
 &nbsp;
 export default Input;
 &nbsp;</pre></td></tr></table></pre>
@@ -226,7 +220,7 @@ export default Input;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-03-26T22:50:58.603Z
+                at 2023-04-02T21:41:32.640Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>
