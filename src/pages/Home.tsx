@@ -1,15 +1,17 @@
 import React from 'react';
-import CardsList from '../components/CardsList/CardsList';
+// import CardsList from '../components/CardsList/CardsList';
 import Search from '../components/Search/Search';
-import mockData from '../data/mockData';
+// import mockData from '../data/mockData';
+import Loading from '../components/Loading/Loading';
 
 function Home() {
-  const { items } = mockData;
+  // const { items } = mockData;
 
   return (
     <>
       <Search />
-      <CardsList items={items} />
+      <Loading />
+      {/* <CardsList items={items} /> */}
     </>
   );
 }
