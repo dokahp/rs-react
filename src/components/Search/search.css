@@ -5,6 +5,11 @@
   flex-grow: 2;
   margin-top: 25px;
 }
+.search-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .search-input {
   padding-left: 35px;
   color: hsla(0, 100%, 100%, 0.88);
@@ -13,10 +18,10 @@
   border: 1px solid hsl(0, 0%, 18.82%);
   border-right: none;
   border-radius: 40px 0 0 40px;
-  height: 40px;
+  height: 44px;
   font-family: Roboto, Noto, sans-serif;
   font-size: 16px;
-  font-weight: 400px;
+  font-weight: 400;
   outline: none;
   width: 320px;
   max-width: 540px;

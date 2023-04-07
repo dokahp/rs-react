@@ -17,21 +17,28 @@ function Search() {
     setSearchValue(e.currentTarget.value);
   };
 
+  const onFormSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    // FORM SUBMIT ON ENTER OR BUTTON CLICK
+  };
+
   return (
     <div className="search-wrapper">
-      <input
-        className="search-input"
-        placeholder="Enter for Search"
-        onChange={inputChange}
-        value={searchValue}
-      />
-      <button className="search-button" type="submit">
-        <Loop
-          className="loop"
-          fill="white"
-          style={{ width: '24px', height: '24px', color: 'f1f1f1' }}
+      <form className="search-form" onSubmit={onFormSubmit}>
+        <input
+          className="search-input"
+          placeholder="Enter for Search"
+          onChange={inputChange}
+          value={searchValue}
         />
-      </button>
+        <button className="search-button" type="submit">
+          <Loop
+            className="loop"
+            fill="white"
+            style={{ width: '24px', height: '24px', color: 'f1f1f1' }}
+          />
+        </button>
+      </form>
     </div>
   );
 }
