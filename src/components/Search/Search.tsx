@@ -2,7 +2,11 @@ import React, { useEffect, useState } from 'react';
 import './search.css';
 import { ReactComponent as Loop } from './loop.svg';
 
-function Search() {
+interface SearchProps {
+  onFormSubmit: (e: React.SyntheticEvent) => void;
+}
+
+function Search({ onFormSubmit }: SearchProps) {
   const [searchValue, setSearchValue] = useState(
     () => localStorage.getItem('search-value') || ''
   );
@@ -15,11 +19,6 @@ function Search() {
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setSearchValue(e.currentTarget.value);
-  };
-
-  const onFormSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    // FORM SUBMIT ON ENTER OR BUTTON CLICK
   };
 
   return (

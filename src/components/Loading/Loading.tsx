@@ -2,7 +2,12 @@ import React from 'react';
 import './Loading.css';
 import { ReactComponent as Spinner } from './loading.svg';
 
-function Loading() {
+interface LoadingProps {
+  isLoading: boolean;
+}
+
+function Loading({ isLoading }: LoadingProps) {
+  if (!isLoading) return null;
   return (
     <div className="spinner-wrapper">
       <Spinner />

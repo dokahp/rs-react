@@ -1,16 +1,19 @@
-import React from 'react';
-// import CardsList from '../components/CardsList/CardsList';
+import React, { useState } from 'react';
 import Search from '../components/Search/Search';
-// import mockData from '../data/mockData';
 import Loading from '../components/Loading/Loading';
 
 function Home() {
-  // const { items } = mockData;
+  const [isLoading, setLoading] = useState(false);
+
+  const onFormSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
+    setLoading((prev: boolean) => !prev);
+  };
 
   return (
     <>
-      <Search />
-      <Loading />
+      <Search onFormSubmit={onFormSubmit} />
+      <Loading isLoading={isLoading} />
       {/* <CardsList items={items} /> */}
     </>
   );
