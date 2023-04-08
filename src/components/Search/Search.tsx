@@ -3,10 +3,11 @@ import './search.css';
 import { ReactComponent as Loop } from './loop.svg';
 
 interface SearchProps {
+  reference: React.RefObject<HTMLInputElement>;
   onFormSubmit: (e: React.SyntheticEvent) => void;
 }
 
-function Search({ onFormSubmit }: SearchProps) {
+function Search({ reference, onFormSubmit }: SearchProps) {
   const [searchValue, setSearchValue] = useState(
     () => localStorage.getItem('search-value') || ''
   );
@@ -29,6 +30,7 @@ function Search({ onFormSubmit }: SearchProps) {
           placeholder="Enter for Search"
           onChange={inputChange}
           value={searchValue}
+          ref={reference}
         />
         <button className="search-button" type="submit">
           <Loop

@@ -7,6 +7,7 @@ interface Props {
 }
 
 function Snackbar({ text, className }: Props) {
+  if (className !== 'show') return null;
   return (
     <div id="snackbar" className={className}>
       {text}

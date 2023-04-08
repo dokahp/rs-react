@@ -4,6 +4,7 @@
   grid-gap: 40px;
   padding: 60px 0;
 }
+
 .cards-wrapper {
   grid-column: 2 / span 12;
   display: grid;
@@ -22,12 +23,36 @@
     grid-template-columns: 10px repeat(6, 1fr) 10px;
     grid-gap: 10px;
   }
+
   .cards-wrapper {
     grid-column: 2 / span 6;
     grid-template-columns: repeat(6, 1fr);
     grid-gap: 20px;
   }
+
   .card {
     grid-column-end: span 6;
   }
+}
+
+
+.error-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 200px;
+
+}
+
+.error {
+  max-width: 360px;
+  padding: 24px 8px;
+  color: #ba3939;
+  background: #ffe0e0;
+  border: 1px solid #a33a3a;
+  text-align: center;
+}
+
+.icon {
+  text-align: center;
 }
