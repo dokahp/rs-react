@@ -10,11 +10,24 @@ interface CardListProps {
     message: string;
     code: string;
   };
+  setClickedCardId: React.Dispatch<React.SetStateAction<string>>;
 }
 
-function CardsList({ items, isLoading, error }: CardListProps) {
+function CardsList({
+  items,
+  isLoading,
+  error,
+  setClickedCardId,
+}: CardListProps) {
   const cardsList = items.map((card: Item) => {
-    return <Card key={card.id.videoId} snippet={card.snippet} />;
+    return (
+      <Card
+        key={card.id.videoId}
+        videoId={card.id.videoId}
+        snippet={card.snippet}
+        setClickedCardId={setClickedCardId}
+      />
+    );
   });
 
   if (isLoading) return null;
