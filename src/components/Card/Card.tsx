@@ -5,18 +5,18 @@ import './card.css';
 type Props = {
   snippet: Snippet;
   videoId: string;
-  setClickedCardId: React.Dispatch<React.SetStateAction<string>>;
+  openModal: (videoId: string) => void;
 };
 
-function Card({ videoId, snippet, setClickedCardId }: Props) {
+function Card({ videoId, snippet, openModal }: Props) {
   const { title, channelTitle, thumbnails, publishedAt } = snippet;
 
-  const handleClick = () => {
-    setClickedCardId(videoId);
-  };
-
   return (
-    <div className="card-wrapper" role="presentation" onClick={handleClick}>
+    <div
+      className="card-wrapper"
+      role="presentation"
+      onClick={() => openModal(videoId)}
+    >
       <div className="card">
         <div className="card-image-wrapper">
           <img

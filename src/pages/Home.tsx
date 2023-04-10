@@ -5,13 +5,15 @@ import Loading from '../components/Loading/Loading';
 import CardsList from '../components/CardsList/CardsList';
 import mockData from '../data/mockData';
 import { Item } from '../components/CardsList/interfaces/cardslist.interface';
+import Modal from '../components/Modal/Modal';
+import itemDefaultState from '../data/defaultState';
 
 function Home() {
   const searchInput: React.RefObject<HTMLInputElement> = createRef();
   const [search, setSearch] = useState('');
   const [cards, setCards] = useState([]);
-  const [clickedCardId, setClickedCardId] = useState('');
-  const [modalInfo, setModalInfo] = useState<Item>();
+  const [modalInfo, setModalInfo] = useState<Item>(itemDefaultState);
+  const [isModalOpen, setIsModalOpen] = useState(true);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState({ message: '', code: '' });
   const { items } = mockData;
@@ -23,6 +25,17 @@ function Home() {
       setSearch(searchInput.current?.value);
       setLoading(() => true);
     }
+  };
+  const openModal = (videoId: string) => {
+    const singleCard = items.find((el: Item) => el.id.videoId === videoId);
+    if (singleCard) {
+      setModalInfo(() => singleCard);
+      setIsModalOpen(() => true);
+    }
+  };
+
+  const modalToggl = () => {
+    setIsModalOpen((prev: boolean) => !prev);
   };
 
   const fetchURL = () => {
@@ -45,18 +58,12 @@ function Home() {
     setSearch('');
   };
 
-  useEffect(() => {
-    if (clickedCardId) {
-      console.log('CARD WITH ID - ', clickedCardId, ' WAS CLICKED');
-      const card = items.find((el: Item) => el.id.videoId === clickedCardId);
-      setModalInfo(card);
-      console.log(modalInfo);
-    }
-  }, [clickedCardId]);
+  // const showDetailedInformation = () => {
+
+  // }
 
   useEffect(() => {
     if (search) {
-      console.log('DATA FETCH');
       // getYoutubeSearchData();
     }
 
@@ -71,7 +78,12 @@ function Home() {
         items={items}
         isLoading={isLoading}
         error={isError}
-        setClickedCardId={setClickedCardId}
+        openModal={openModal}
+      />
+      <Modal
+        toggl={modalToggl}
+        isModalOpen={isModalOpen}
+        modalInfo={modalInfo}
       />
     </>
   );

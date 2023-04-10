@@ -10,22 +10,17 @@ interface CardListProps {
     message: string;
     code: string;
   };
-  setClickedCardId: React.Dispatch<React.SetStateAction<string>>;
+  openModal: (videoId: string) => void;
 }
 
-function CardsList({
-  items,
-  isLoading,
-  error,
-  setClickedCardId,
-}: CardListProps) {
+function CardsList({ items, isLoading, error, openModal }: CardListProps) {
   const cardsList = items.map((card: Item) => {
     return (
       <Card
         key={card.id.videoId}
         videoId={card.id.videoId}
         snippet={card.snippet}
-        setClickedCardId={setClickedCardId}
+        openModal={openModal}
       />
     );
   });
