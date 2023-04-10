@@ -3,7 +3,6 @@ import axios from 'axios';
 import Search from '../components/Search/Search';
 import Loading from '../components/Loading/Loading';
 import CardsList from '../components/CardsList/CardsList';
-// import mockData from '../data/mockData';
 import { Item } from '../components/CardsList/interfaces/cardslist.interface';
 import Modal from '../components/Modal/Modal';
 import itemDefaultState from '../data/defaultState';
@@ -16,7 +15,6 @@ function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState({ message: '', code: '' });
-  // const { items } = mockData;
 
   const onFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -38,32 +36,29 @@ function Home() {
     setIsModalOpen((prev: boolean) => !prev);
   };
 
-  const fetchURL = () => {
-    const privateKey = 'AIzaSyCKYMT0xKGJddBlTYcwsF_ORA_g9pb3cKg';
-    const baseURL = 'https://www.googleapis.com/youtube/v3/search';
-    return `${baseURL}?q=${search}&part=snippet&type=video&maxResults=25&key=${privateKey}`;
-  };
-
-  const getYoutubeSearchData = async () => {
-    try {
-      const { data } = await axios.get(fetchURL());
-      setCards(data.items);
-      setLoading(() => false);
-    } catch (error) {
-      setLoading(() => false);
-      if (axios.isAxiosError(error)) {
-        setError({ message: error.message, code: error.code || '' });
-      }
-    }
-    setSearch('');
-  };
-
   useEffect(() => {
+    const fetchURL = () => {
+      const privateKey = 'AIzaSyCKYMT0xKGJddBlTYcwsF_ORA_g9pb3cKg';
+      const baseURL = 'https://www.googleapis.com/youtube/v3/search';
+      return `${baseURL}?q=${search}&part=snippet&type=video&maxResults=25&key=${privateKey}`;
+    };
+
+    const getYoutubeSearchData = async () => {
+      try {
+        const { data } = await axios.get(fetchURL());
+        setCards(data.items);
+        setLoading(() => false);
+      } catch (error) {
+        setLoading(() => false);
+        if (axios.isAxiosError(error)) {
+          setError({ message: error.message, code: error.code || '' });
+        }
+      }
+      setSearch('');
+    };
     if (search) {
       getYoutubeSearchData();
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);
 
   return (
