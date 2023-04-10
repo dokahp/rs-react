@@ -13,7 +13,7 @@ function Home() {
   const [search, setSearch] = useState('');
   const [cards, setCards] = useState([]);
   const [modalInfo, setModalInfo] = useState<Item>(itemDefaultState);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState({ message: '', code: '' });
   const { items } = mockData;

@@ -1,9 +1,9 @@
 const itemDefaultState = {
-  kind: 'youtube#searchResult',
-  etag: 'vTmGqxd7ZWhZD28IaGBVaXi8xVg',
+  kind: '',
+  etag: '',
   id: {
-    kind: 'youtube#video',
-    videoId: 'D3o4zJjX08Y',
+    kind: '',
+    videoId: '',
   },
   snippet: {
     publishedAt: '2023-03-18T10:30:03Z',
