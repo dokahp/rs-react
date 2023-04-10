@@ -3,7 +3,7 @@ import axios from 'axios';
 import Search from '../components/Search/Search';
 import Loading from '../components/Loading/Loading';
 import CardsList from '../components/CardsList/CardsList';
-import mockData from '../data/mockData';
+// import mockData from '../data/mockData';
 import { Item } from '../components/CardsList/interfaces/cardslist.interface';
 import Modal from '../components/Modal/Modal';
 import itemDefaultState from '../data/defaultState';
@@ -16,7 +16,7 @@ function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState({ message: '', code: '' });
-  const { items } = mockData;
+  // const { items } = mockData;
 
   const onFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -27,7 +27,7 @@ function Home() {
     }
   };
   const openModal = (videoId: string) => {
-    const singleCard = items.find((el: Item) => el.id.videoId === videoId);
+    const singleCard = cards.find((el: Item) => el.id.videoId === videoId);
     if (singleCard) {
       setModalInfo(() => singleCard);
       setIsModalOpen(() => true);
@@ -58,13 +58,9 @@ function Home() {
     setSearch('');
   };
 
-  // const showDetailedInformation = () => {
-
-  // }
-
   useEffect(() => {
     if (search) {
-      // getYoutubeSearchData();
+      getYoutubeSearchData();
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -75,7 +71,7 @@ function Home() {
       <Search onFormSubmit={onFormSubmit} reference={searchInput} />
       <Loading isLoading={isLoading} />
       <CardsList
-        items={items}
+        items={cards}
         isLoading={isLoading}
         error={isError}
         openModal={openModal}
