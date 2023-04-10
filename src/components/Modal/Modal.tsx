@@ -56,6 +56,7 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
     };
     if (videoId) {
       console.log('VIDEO DETAILS INFORMATION MUST BE FETCHED');
+      getVideoDataById();
     }
   }, [videoId]);
 
@@ -105,6 +106,12 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
                   👍{' '}
                   {intToString(
                     detailedInfo?.items[0].statistics.likeCount || 0
+                  )}
+                </div>
+                <div className="comments-count">
+                  💬{' '}
+                  {intToString(
+                    detailedInfo?.items[0].statistics.commentCount || 0
                   )}
                 </div>
               </div>
