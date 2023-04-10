@@ -9,7 +9,9 @@ import itemDefaultState from '../data/defaultState';
 
 function Home() {
   const searchInput: React.RefObject<HTMLInputElement> = createRef();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(
+    localStorage.getItem('prevSearch') || ''
+  );
   const [cards, setCards] = useState([]);
   const [modalInfo, setModalInfo] = useState<Item>(itemDefaultState);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,6 +60,7 @@ function Home() {
     };
     if (search) {
       getYoutubeSearchData();
+      localStorage.setItem('prevSearch', search);
     }
   }, [search]);
 
