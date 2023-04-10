@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './modal.css';
 import { Item } from '../CardsList/interfaces/cardslist.interface';
-import { VideoDetails } from './modal.interface';
+import { VideoDetails } from './interfaces/videoDetail.interface';
+import { ChannelDetail } from './interfaces/channelDetail.interface';
 
 interface ModalProps {
   toggl: (e: React.SyntheticEvent) => void;
@@ -10,10 +11,18 @@ interface ModalProps {
   modalInfo: Item;
 }
 
+const CHANNELBASEURL =
+  'https://www.googleapis.com/youtube/v3/channels?part=id,snippet,statistics';
+
+const VIDEOBASEURL =
+  'https://www.googleapis.com/youtube/v3/videos?part=id,snippet,contentDetails,statistics';
+
 function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
   const { videoId } = modalInfo.id;
-  // const { channelId } = modalInfo.snippet;
+  const { channelId } = modalInfo.snippet;
   const [detailedInfo, setDetailedInfo] = useState<VideoDetails>();
+  const [channelDetailInfo, setChannelDetailInfo] = useState<ChannelDetail>();
+  const [errorObj, setErrorObj] = useState({ code: '', message: '' });
   const [fullDescription, setFullDescription] = useState(false);
 
   const intToString = (num: number | string) => {
@@ -44,21 +53,37 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
 
   useEffect(() => {
     const getVideoDataById = async () => {
-      const URL = `https://www.googleapis.com/youtube/v3/videos?part=id,snippet,contentDetails,statistics&id=${videoId}&key=AIzaSyCKYMT0xKGJddBlTYcwsF_ORA_g9pb3cKg`;
+      const URL = `${VIDEOBASEURL}&id=${videoId}&key=AIzaSyCKYMT0xKGJddBlTYcwsF_ORA_g9pb3cKg`;
       try {
         const { data } = await axios.get(URL);
         setDetailedInfo(data);
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          console.log(error);
+          setErrorObj({ code: error.code || '', message: error.message });
         }
       }
     };
     if (videoId) {
-      console.log('VIDEO DETAILS INFORMATION MUST BE FETCHED');
       getVideoDataById();
     }
   }, [videoId]);
+
+  useEffect(() => {
+    const getChannelDataById = async () => {
+      const URL = `${CHANNELBASEURL}&id=${channelId}&key=AIzaSyCKYMT0xKGJddBlTYcwsF_ORA_g9pb3cKg`;
+      try {
+        const { data } = await axios.get(URL);
+        setChannelDetailInfo(data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          setErrorObj({ code: error.code || '', message: error.message });
+        }
+      }
+    };
+    if (channelId) {
+      getChannelDataById();
+    }
+  }, [channelId]);
 
   if (!isModalOpen) return null;
   const { snippet } = modalInfo;
@@ -80,11 +105,23 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
             />
             <div className="modalTitle">{snippet.title}</div>
             <div className="modalChannelTitle">
-              <div className="content-heading">Channel:</div>
-              {snippet.channelTitle}
+              <img
+                className="channel-logo"
+                src={channelDetailInfo?.items[0].snippet.thumbnails.default.url}
+                alt="channel-logo"
+              />
+              <div className="channel-title-wrapper">
+                <div className="modal-channel-title">
+                  {snippet.channelTitle}
+                </div>
+                <div className="channel-subscribers-count">
+                  {intToString(
+                    channelDetailInfo?.items[0].statistics.subscriberCount || 0
+                  )}
+                </div>
+              </div>
             </div>
             <div className="modalPublishedAt">
-              <div className="content-heading">Published At: </div>
               {new Date(snippet.publishedAt).toLocaleString('ru-Ru', {
                 second: undefined,
                 hour: 'numeric',
@@ -125,7 +162,7 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
                 className="view-full-btn"
                 onClick={() => setFullDescription((prev: boolean) => !prev)}
               >
-                {fullDescription ? 'Hide full' : 'View full'}
+                {fullDescription && !errorObj.code ? 'Hide full' : 'View full'}
               </button>
             </div>
           </div>
