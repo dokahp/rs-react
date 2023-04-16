@@ -1,8 +1,10 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import searchTextReducer from './reducers/searchTextSlice';
+import yourVideosReducer from './reducers/yourVideosSlice';
 
 const rootReducer = combineReducers({
   searchTextReducer,
+  yourVideosReducer,
 });
 
 export const setupStore = () => {

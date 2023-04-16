@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import { useForm, SubmitHandler, FormProvider } from 'react-hook-form';
-import YourCard, { YourCardProps } from '../components/Card/YourCard';
+import YourCard from '../components/Card/YourCard';
 import Snackbar from '../components/Snackbar/Snackbar';
 import { Inputs } from '../components/Form/interfaces/form.interface';
 import { ISnackbar } from './interfaces/yourVideos.interface';
 import Form from '../components/Form/Form';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux';
+import { yourVideosSlice } from '../store/reducers/yourVideosSlice';
 
 function YourVideos() {
+  const { yourVideos } = useAppSelector((state) => state.yourVideosReducer);
+  const dispatch = useAppDispatch();
+  const { addVideo } = yourVideosSlice.actions;
   const methods = useForm<Inputs>();
-  const [items, setItems] = useState<YourCardProps[]>([]);
+
   const [snackbar, setSnackbar] = useState<ISnackbar>({
     text: '',
     className: '',
@@ -37,9 +42,8 @@ function YourVideos() {
   };
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    setItems([
-      ...items,
-      {
+    dispatch(
+      addVideo({
         file: fileURL || '',
         title: data.videoTitle,
         channelTitle: data.chanelTitle,
@@ -47,8 +51,8 @@ function YourVideos() {
         videoType: data.select,
         adultContent: data.adult,
         advertising: data.advertising,
-      },
-    ]);
+      })
+    );
     if (data.notification) {
       showSnackbar('Video added. Notification sent');
     } else {
@@ -58,11 +62,11 @@ function YourVideos() {
     methods.reset();
   };
 
-  const cardsList = items.map((card: YourCardProps) => {
+  const cardsList = yourVideos.map((card) => {
     return (
       <YourCard
         key={`${new Date().getTime()}${JSON.stringify(card)}`}
-        file={card.file}
+        file={card.file || ''}
         title={card.title}
         channelTitle={card.channelTitle}
         publishedAt={card.publishedAt}
