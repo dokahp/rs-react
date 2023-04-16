@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './search.css';
 import { ReactComponent as Loop } from './loop.svg';
+import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
+import { searchTextSlice } from '../../store/reducers/searchTextSlice';
 
 interface SearchProps {
   reference: React.RefObject<HTMLInputElement>;
@@ -8,18 +10,14 @@ interface SearchProps {
 }
 
 function Search({ reference, onFormSubmit }: SearchProps) {
-  const [searchValue, setSearchValue] = useState(
-    () => localStorage.getItem('search-value') || ''
+  const { searchTextValue } = useAppSelector(
+    (state) => state.searchTextReducer
   );
-
-  useEffect(() => {
-    return () => {
-      localStorage.setItem('search-value', searchValue);
-    };
-  }, [searchValue]);
+  const { setSearchTextValue } = searchTextSlice.actions;
+  const dispatch = useAppDispatch();
 
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setSearchValue(e.currentTarget.value);
+    dispatch(setSearchTextValue(e.target.value));
   };
 
   return (
@@ -29,7 +27,7 @@ function Search({ reference, onFormSubmit }: SearchProps) {
           className="search-input"
           placeholder="Enter for Search"
           onChange={inputChange}
-          value={searchValue}
+          value={searchTextValue}
           ref={reference}
         />
         <button className="search-button" type="submit">
