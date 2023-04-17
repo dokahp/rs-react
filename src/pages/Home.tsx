@@ -29,7 +29,9 @@ function Home() {
   };
 
   const openModal = (videoId: string) => {
-    const singleCard = cards.find((el: Item) => el.id.videoId === videoId);
+    const singleCard = data
+      ? data.items.find((el: Item) => el.id.videoId === videoId)
+      : null;
     if (singleCard) {
       setModalInfo(() => singleCard);
       setIsModalOpen(() => true);
