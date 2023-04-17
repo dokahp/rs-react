@@ -24,7 +24,7 @@ function Home() {
 
     if (searchInput.current?.value) {
       setSearch(searchInput.current.value);
-      sendSearchRequest(search);
+      sendSearchRequest(search, true);
     }
   };
 
@@ -40,9 +40,10 @@ function Home() {
     setIsModalOpen((prev: boolean) => !prev);
   };
 
+  // REFETCH AFTER ROUTE CHANGE
   useEffect(() => {
-    if (search) {
-      sendSearchRequest(search);
+    if (search && !isLoading) {
+      sendSearchRequest(search, true);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [search]);

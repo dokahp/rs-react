@@ -6,6 +6,7 @@ const searchAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: 'https://www.googleapis.com/youtube/v3',
   }),
+  keepUnusedDataFor: 3600,
 
   endpoints: (build) => ({
     search: build.query<Search, string>({
