@@ -15,7 +15,7 @@ function Home() {
   const [search, setSearch] = useState(
     localStorage.getItem('prevSearch') || ''
   );
-  const [cards, setCards] = useState([]);
+
   const [modalInfo, setModalInfo] = useState<Item>(itemDefaultState);
   const [isModalOpen, setIsModalOpen] = useState(false);
 

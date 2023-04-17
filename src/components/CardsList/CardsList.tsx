@@ -10,7 +10,6 @@ interface CardListProps {
 }
 
 function CardsList({ items, isLoading, openModal }: CardListProps) {
-  console.log('CARD LIST', items);
   const cardsList = items.map((card: Item) => {
     return (
       <Card
