@@ -1,4 +1,4 @@
-import React, { createRef, useState } from 'react';
+import React, { createRef, useEffect, useState } from 'react';
 import Search from '../components/Search/Search';
 import Loading from '../components/Loading/Loading';
 import CardsList from '../components/CardsList/CardsList';
@@ -23,7 +23,8 @@ function Home() {
     e.preventDefault();
 
     if (searchInput.current?.value) {
-      sendSearchRequest(searchInput.current.value);
+      setSearch(searchInput.current.value);
+      sendSearchRequest(search);
     }
   };
 
@@ -38,6 +39,13 @@ function Home() {
   const modalToggl = () => {
     setIsModalOpen((prev: boolean) => !prev);
   };
+
+  useEffect(() => {
+    if (search) {
+      sendSearchRequest(search);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [search]);
 
   // useEffect(() => {
   //   const fetchURL = () => {

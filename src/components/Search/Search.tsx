@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './search.css';
 import { ReactComponent as Loop } from './loop.svg';
 import { useAppDispatch, useAppSelector } from '../../store/hooks/redux';
@@ -19,6 +19,10 @@ function Search({ reference, onFormSubmit }: SearchProps) {
   const inputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     dispatch(setSearchTextValue(e.target.value));
   };
+
+  useEffect(() => {
+    return localStorage.setItem('prevSearch', searchTextValue);
+  });
 
   return (
     <div className="search-wrapper">
