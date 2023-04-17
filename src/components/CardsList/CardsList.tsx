@@ -6,14 +6,11 @@ import { Item } from './interfaces/cardslist.interface';
 interface CardListProps {
   items: Item[];
   isLoading: boolean;
-  error: {
-    message: string;
-    code: string;
-  };
   openModal: (videoId: string) => void;
 }
 
-function CardsList({ items, isLoading, error, openModal }: CardListProps) {
+function CardsList({ items, isLoading, openModal }: CardListProps) {
+  console.log('CARD LIST', items);
   const cardsList = items.map((card: Item) => {
     return (
       <Card
@@ -26,18 +23,7 @@ function CardsList({ items, isLoading, error, openModal }: CardListProps) {
   });
 
   if (isLoading) return null;
-  if (error.code) {
-    return (
-      <div className="error-wrapper">
-        <div className="error">
-          <div className="icon">⚠️</div>
-          {error.message}
-          <br />
-          Reason: You have reached the maximum number of requests per day
-        </div>
-      </div>
-    );
-  }
+
   return (
     <div className="main-wrapper">
       <div className="cards-wrapper">{cardsList}</div>
