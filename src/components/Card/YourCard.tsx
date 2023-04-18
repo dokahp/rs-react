@@ -47,7 +47,7 @@ function YourCard({
                     ? './assets/video.svg'
                     : './assets/stream.svg'
                 }
-                alt="advertising"
+                alt="video-type"
               />
               <div className="chip-description">{videoType}</div>
             </div>
