@@ -20,6 +20,15 @@ function YourCard({
   adultContent,
   advertising,
 }: YourCardProps) {
+  const modifiedTitle = title.length > 73 ? `${title.slice(0, 73)}...` : title;
+  const modifiedDate = new Date(publishedAt).toLocaleString('ru-Ru', {
+    second: undefined,
+    hour: 'numeric',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    minute: '2-digit',
+  });
   return (
     <div className="card-wrapper">
       <div className="card">
@@ -27,20 +36,9 @@ function YourCard({
           <img src={file} alt="video-title" className="card-image" />
         </div>
         <div className="card-content-wrapper">
-          <div className="title">
-            {title.length > 73 ? `${title.slice(0, 73)}...` : title}
-          </div>
+          <div className="title">{modifiedTitle}</div>
           <div className="channel-title">{channelTitle}</div>
-          <div className="published-at">
-            {new Date(publishedAt).toLocaleString('ru-Ru', {
-              second: undefined,
-              hour: 'numeric',
-              year: 'numeric',
-              month: '2-digit',
-              day: '2-digit',
-              minute: '2-digit',
-            })}
-          </div>
+          <div className="published-at">{modifiedDate}</div>
           <div className="chips-wrapper">
             <div className="chip">
               <img
