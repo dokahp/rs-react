@@ -7,7 +7,7 @@ const { items } = mockData;
 
 describe('Card', () => {
   it('It All have images', () => {
-    render(<CardsList items={items} />);
+    render(<CardsList items={items} isLoading={false} openModal={() => {}} />);
 
     screen.findAllByAltText(/video-title/).then((imgList: HTMLElement[]) => {
       expect(
