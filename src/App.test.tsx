@@ -1,23 +1,31 @@
 import { describe, it } from 'vitest';
 import { BrowserRouter, MemoryRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
 import App from './App';
+import { setupStore } from './store/store';
+
+const store = setupStore();
 
 describe('App', () => {
   it('It have search input', () => {
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     );
     const search = screen.getByPlaceholderText(/Enter for Search/i);
     expect(search).toBeVisible();
   });
   it('It have navigation', () => {
     render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
     );
     const nav = screen.getByRole('navigation');
     expect(nav).toHaveClass('nav');
