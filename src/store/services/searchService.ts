@@ -13,7 +13,7 @@ const searchAPI = createApi({
       query: (searchValue: string) => ({
         url: '/search',
         params: {
-          key: 'AIzaSyCKYMT0xKGJddBlTYcwsF_ORA_g9pb3cKg',
+          key: import.meta.env.VITE_YOUTUBE_API_KEY,
           q: searchValue,
           part: 'snippet',
           type: 'video',
