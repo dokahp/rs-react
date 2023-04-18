@@ -80,10 +80,10 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
         }
       }
     };
-    if (channelId) {
+    if (channelId && isModalOpen) {
       getChannelDataById();
     }
-  }, [channelId]);
+  }, [channelId, isModalOpen]);
 
   if (!isModalOpen) return null;
   const { snippet } = modalInfo;

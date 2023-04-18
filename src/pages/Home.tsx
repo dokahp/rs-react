@@ -7,24 +7,25 @@ import Modal from '../components/Modal/Modal';
 import itemDefaultState from '../data/defaultState';
 import searchAPI from '../store/services/searchService';
 import ErrorComp from '../components/Error/ErrorComp';
+import { useAppDispatch, useAppSelector } from '../store/hooks/redux';
+import { searchTextSlice } from '../store/reducers/searchTextSlice';
 
 function Home() {
+  const { previousSearch } = useAppSelector((state) => state.searchTextReducer);
+  const { setPrevSearchValue } = searchTextSlice.actions;
+  const dispatch = useAppDispatch();
+
   const [sendSearchRequest, { data, isLoading, isError }] =
     searchAPI.useLazySearchQuery();
   const searchInput: React.RefObject<HTMLInputElement> = createRef();
-  const [search, setSearch] = useState(
-    localStorage.getItem('prevSearch') || ''
-  );
-
   const [modalInfo, setModalInfo] = useState<Item>(itemDefaultState);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onFormSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
-
     if (searchInput.current?.value) {
-      setSearch(searchInput.current.value);
-      sendSearchRequest(search, true);
+      dispatch(setPrevSearchValue(searchInput.current?.value));
+      sendSearchRequest(searchInput.current?.value, true);
     }
   };
 
@@ -43,8 +44,8 @@ function Home() {
   };
 
   useEffect(() => {
-    if (search && !isLoading) {
-      sendSearchRequest(search, true);
+    if (previousSearch) {
+      sendSearchRequest(previousSearch, true);
     }
   });
 
