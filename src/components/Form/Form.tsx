@@ -29,14 +29,7 @@ function Form({ file, handleFormSubmit, handleChangeFile }: HookFormProps) {
           name="notification"
           description="Send a notification to subscribers"
         />
-        <div
-          style={{
-            color: 'rgba(255, 255, 255, 0.5)',
-            fontSize: '18px',
-            fontWeight: '700',
-            marginBottom: '20px',
-          }}
-        >
+        <div className="requiredFiled">
           <sup>*</sup> - Required field
         </div>
         <SubmitBtn />
