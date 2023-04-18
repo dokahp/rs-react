@@ -42,39 +42,11 @@ function Home() {
     setIsModalOpen((prev: boolean) => !prev);
   };
 
-  // REFETCH AFTER ROUTE CHANGE
   useEffect(() => {
     if (search && !isLoading) {
       sendSearchRequest(search, true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [search]);
-
-  // useEffect(() => {
-  //   const fetchURL = () => {
-  //     const privateKey = 'AIzaSyCKYMT0xKGJddBlTYcwsF_ORA_g9pb3cKg';
-  //     const baseURL = 'https://www.googleapis.com/youtube/v3/search';
-  //     return `${baseURL}?q=${search}&part=snippet&type=video&maxResults=25&key=${privateKey}`;
-  //   };
-
-  //   const getYoutubeSearchData = async () => {
-  //     try {
-  //       const { data } = await axios.get(fetchURL());
-  //       setCards(data.items);
-  //       setLoading(() => false);
-  //     } catch (error) {
-  //       setLoading(() => false);
-  //       if (axios.isAxiosError(error)) {
-  //         setError({ message: error.message, code: error.code || '' });
-  //       }
-  //     }
-  //     setSearch('');
-  //   };
-  //   if (search) {
-  //     // getYoutubeSearchData();
-  //     localStorage.setItem('prevSearch', search);
-  //   }
-  // }, [search]);
+  });
 
   return (
     <>
