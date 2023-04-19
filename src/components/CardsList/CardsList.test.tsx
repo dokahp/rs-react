@@ -5,7 +5,7 @@ import mockData from '../../data/mockData';
 
 const { items } = mockData;
 
-describe('Card', () => {
+describe('CardList', () => {
   it('It All have images', () => {
     render(<CardsList items={items} isLoading={false} openModal={() => {}} />);
 
