@@ -48,7 +48,5 @@ export type Inputs = {
 export interface HookFormProps {
   handleFormSubmit: (event: React.SyntheticEvent) => void;
   handleChangeFile: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  // handleSwitch: () => void;
-  // switcher: Switcher;
   file: string | null;
 }

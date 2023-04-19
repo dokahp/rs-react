@@ -82,8 +82,6 @@ export interface ContentDetails {
   projection: string;
 }
 
-// export interface ContentRating {}
-
 export interface Statistics {
   viewCount: string;
   likeCount: string;
