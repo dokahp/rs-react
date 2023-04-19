@@ -4,6 +4,7 @@
   margin-bottom: 20px;
   justify-content: space-between;
 }
+
 .react-switch-checkbox {
   height: 0;
   width: 0;
@@ -36,7 +37,7 @@
   box-shadow: 0 0 2px 0 rgba(10, 10, 10, 0.29);
 }
 
-.react-switch-checkbox:checked + .react-switch-label .react-switch-button {
+.react-switch-checkbox:checked+.react-switch-label .react-switch-button {
   left: calc(100% - 2px);
   transform: translateX(-100%);
 }
@@ -50,4 +51,12 @@
   color: rgba(255, 255, 255, 0.5);
   font-size: 18px;
   font-weight: 700;
+}
+
+.on {
+  background-color: #06D6A0;
+}
+
+.off {
+  background-color: #808080;
 }

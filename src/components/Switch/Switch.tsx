@@ -20,12 +20,7 @@ function Switch({ name }: Props) {
   }, [submitCount]);
 
   return (
-    <label
-      htmlFor="react-switch-new"
-      className="label"
-      style={{ display: 'flex', alignItems: 'center' }}
-      {...register(name)}
-    >
+    <label htmlFor="react-switch-new" className="label" {...register(name)}>
       <input
         name={name}
         onChange={handleSwitch}
@@ -34,8 +29,9 @@ function Switch({ name }: Props) {
         type="checkbox"
       />
       <label
-        style={{ backgroundColor: switcher ? '#06D6A0' : '#808080' }}
-        className="react-switch-label"
+        className={
+          switcher ? 'react-switch-label on' : 'react-switch-label off'
+        }
         htmlFor="react-switch-new"
       >
         <span className="react-switch-button" />
