@@ -13,16 +13,11 @@ function Select({ name }: Props) {
   return (
     <>
       <select
-        className="select"
+        className={errors[name] ? 'select select-error' : 'select'}
         defaultValue=""
         {...register(name, {
           required: { value: true, message: 'Select video type' },
         })}
-        style={
-          errors[name]
-            ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' }
-            : {}
-        }
       >
         <option value="Video">Video</option>
         <option value="Stream">Stream</option>

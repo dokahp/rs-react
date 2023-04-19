@@ -11,3 +11,8 @@
   border-left: transparent;
   border-right: 22px solid transparent;
 }
+
+.select-error {
+  margin-bottom: 5px;
+  border-bottom: 2px solid #d8000c;
+}
