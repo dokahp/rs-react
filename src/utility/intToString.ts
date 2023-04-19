@@ -1,4 +1,4 @@
-const intToString = (num: number | string) => {
+const bigNumbersConverter = (num: number | string) => {
   const number = num.toString().replace(/[^0-9.]/g, '');
   if (Number(number) < 1000) {
     return number;
@@ -24,4 +24,4 @@ const intToString = (num: number | string) => {
   );
 };
 
-export default intToString;
+export default bigNumbersConverter;

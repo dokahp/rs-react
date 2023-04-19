@@ -4,7 +4,7 @@ import './modal.css';
 import { Item } from '../CardsList/interfaces/cardslist.interface';
 import { VideoDetails } from './interfaces/videoDetail.interface';
 import { ChannelDetail } from './interfaces/channelDetail.interface';
-import intToString from '../../utility/intToString';
+import bigNumbersConverter from '../../utility/intToString';
 
 interface ModalProps {
   toggl: (e: React.SyntheticEvent) => void;
@@ -73,16 +73,16 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
     day: '2-digit',
     minute: '2-digit',
   });
-  const subscribersCount = intToString(
+  const subscribersCount = bigNumbersConverter(
     channelDetailInfo?.items[0].statistics.subscriberCount || 0
   );
-  const viewsCount = intToString(
+  const viewsCount = bigNumbersConverter(
     detailedInfo?.items[0].statistics.viewCount || 0
   );
-  const likesCount = intToString(
+  const likesCount = bigNumbersConverter(
     detailedInfo?.items[0].statistics.likeCount || 0
   );
-  const commentsCount = intToString(
+  const commentsCount = bigNumbersConverter(
     detailedInfo?.items[0].statistics.commentCount || 0
   );
   return (
