@@ -63,10 +63,11 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
         }
       }
     };
-    if (videoId) {
+
+    if (videoId && isModalOpen) {
       getVideoDataById();
     }
-  }, [videoId]);
+  }, [videoId, isModalOpen]);
 
   useEffect(() => {
     const getChannelDataById = async () => {
