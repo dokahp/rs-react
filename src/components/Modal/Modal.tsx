@@ -53,7 +53,8 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
 
   useEffect(() => {
     const getVideoDataById = async () => {
-      const URL = `${VIDEOBASEURL}&id=${videoId}&key=AIzaSyCKYMT0xKGJddBlTYcwsF_ORA_g9pb3cKg`;
+      const key = import.meta.env.VITE_YOUTUBE_API_KEY;
+      const URL = `${VIDEOBASEURL}&id=${videoId}&key=${key}`;
       try {
         const { data } = await axios.get(URL);
         setDetailedInfo(data);
@@ -71,7 +72,8 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
 
   useEffect(() => {
     const getChannelDataById = async () => {
-      const URL = `${CHANNELBASEURL}&id=${channelId}&key=AIzaSyCKYMT0xKGJddBlTYcwsF_ORA_g9pb3cKg`;
+      const key = import.meta.env.VITE_YOUTUBE_API_KEY;
+      const URL = `${CHANNELBASEURL}&id=${channelId}&key=${key}`;
       try {
         const { data } = await axios.get(URL);
         setChannelDetailInfo(data);
