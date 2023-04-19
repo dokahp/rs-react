@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
 }
+
 .datepicker {
   height: 56px;
   width: 100%;
@@ -14,12 +15,14 @@
   margin-bottom: 20px;
   border: 0;
 }
+
 ::-webkit-calendar-picker-indicator {
   background-color: #ffffff;
   padding: 8px;
   cursor: pointer;
   border-radius: 8px;
 }
+
 .datepicker-wrapper .label {
   position: absolute;
   top: -3px;
@@ -32,8 +35,14 @@
   transition: all 0.2s ease;
   pointer-events: none;
 }
+
 .checkbox-input {
   height: 32px;
   width: 32px;
   margin-right: 12px;
+}
+
+.input-error {
+  margin-bottom: 5px;
+  border-bottom: 2px solid #d8000c;
 }

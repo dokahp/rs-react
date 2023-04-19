@@ -16,15 +16,10 @@ function DatePicker({ name }: Props) {
       </span>
       <input
         type="datetime-local"
-        className="datepicker"
+        className={errors[name] ? 'datepicker input-error' : 'datepicker'}
         {...register(name, {
           required: { value: true, message: 'Publish date is required' },
         })}
-        style={
-          errors[name]
-            ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' }
-            : {}
-        }
       />
       {errors[name] && (
         <div className="error-block">{errors[name]?.message?.toString()}</div>
