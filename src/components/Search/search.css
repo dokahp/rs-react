@@ -5,11 +5,13 @@
   flex-grow: 2;
   margin-top: 25px;
 }
+
 .search-form {
   display: flex;
   justify-content: center;
   align-items: center;
 }
+
 .search-input {
   padding-left: 35px;
   color: hsla(0, 100%, 100%, 0.88);
@@ -26,6 +28,7 @@
   width: 320px;
   max-width: 540px;
 }
+
 .search-button {
   cursor: pointer;
   height: 44px;
@@ -40,5 +43,7 @@
 }
 
 .loop {
-  color: #f1f1f1;
+  width: 24px;
+  height: 24px;
+  color: #f1f1f1
 }

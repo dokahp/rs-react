@@ -35,11 +35,7 @@ function Search({ reference, onFormSubmit }: SearchProps) {
           ref={reference}
         />
         <button className="search-button" type="submit">
-          <Loop
-            className="loop"
-            fill="white"
-            style={{ width: '24px', height: '24px', color: 'f1f1f1' }}
-          />
+          <Loop className="loop" fill="white" />
         </button>
       </form>
     </div>
