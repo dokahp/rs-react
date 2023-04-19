@@ -19,8 +19,11 @@ function Upload({ file, handleChangeFile }: Props) {
   return (
     <>
       <div
-        className="file-upload-wrapper"
-        style={errors.file ? { marginBottom: '5px' } : {}}
+        className={
+          errors.file
+            ? 'file-upload-wrapper wrapper-error'
+            : 'file-upload-wrapper'
+        }
       >
         <input
           type="file"
@@ -36,7 +39,11 @@ function Upload({ file, handleChangeFile }: Props) {
           id="label-file-upload"
           htmlFor="input-file-upload"
           ref={label}
-          style={errors.file ? { border: '3px dashed rgb(216, 0, 12)' } : {}}
+          className={
+            errors.file
+              ? 'label-file-upload label-file-error'
+              : 'label-file-upload'
+          }
         >
           <div className="image-wrapper">
             <img
