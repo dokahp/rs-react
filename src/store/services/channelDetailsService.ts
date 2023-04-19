@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Search } from '../models/search.model';
+import { ChannelDetail } from '../../components/Modal/interfaces/channelDetail.interface';
 
 const channelDetailsAPI = createApi({
   reducerPath: 'searchAPI',
@@ -9,7 +9,7 @@ const channelDetailsAPI = createApi({
   keepUnusedDataFor: 3600,
 
   endpoints: (build) => ({
-    search: build.query<Search, string>({
+    search: build.query<ChannelDetail, string>({
       query: (channelId: string) => ({
         url: '/channels',
         params: {
