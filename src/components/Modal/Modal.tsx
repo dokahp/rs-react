@@ -4,6 +4,7 @@ import { Item } from '../CardsList/interfaces/cardslist.interface';
 import bigNumbersConverter from '../../utility/intToString';
 import videoDetailsAPI from '../../store/services/videoDetailsService';
 import channelDetailsAPI from '../../store/services/channelDetailsService';
+import dateFormatting from '../../utility/dateFormatting';
 
 interface ModalProps {
   toggl: (e: React.SyntheticEvent) => void;
@@ -24,14 +25,7 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
 
   if (!isModalOpen) return null;
   const { snippet } = modalInfo;
-  const modifiedDate = new Date(snippet.publishedAt).toLocaleString('ru-Ru', {
-    second: undefined,
-    hour: 'numeric',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    minute: '2-digit',
-  });
+  const modifiedDate = dateFormatting(snippet.publishedAt);
   const subscribersCount = bigNumbersConverter(
     channelDetails.data?.items[0].statistics.subscriberCount || 0
   );

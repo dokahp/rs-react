@@ -1,6 +1,7 @@
 import React from 'react';
 import { Snippet } from '../CardsList/interfaces/cardslist.interface';
 import './card.css';
+import dateFormatting from '../../utility/dateFormatting';
 
 type Props = {
   snippet: Snippet;
@@ -11,14 +12,7 @@ type Props = {
 function Card({ videoId, snippet, openModal }: Props) {
   const { title, channelTitle, thumbnails, publishedAt } = snippet;
   const modifiedTitle = title.length > 73 ? `${title.slice(0, 73)}...` : title;
-  const modifiedDate = new Date(publishedAt).toLocaleString('ru-Ru', {
-    second: undefined,
-    hour: 'numeric',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    minute: '2-digit',
-  });
+  const modifiedDate = dateFormatting(publishedAt);
   return (
     <div
       className="card-wrapper"

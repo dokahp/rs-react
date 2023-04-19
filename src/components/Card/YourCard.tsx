@@ -1,5 +1,6 @@
 import React from 'react';
 import './yourcard.css';
+import dateFormatting from '../../utility/dateFormatting';
 
 export interface YourCardProps {
   file: string;
@@ -21,14 +22,7 @@ function YourCard({
   advertising,
 }: YourCardProps) {
   const modifiedTitle = title.length > 73 ? `${title.slice(0, 73)}...` : title;
-  const modifiedDate = new Date(publishedAt).toLocaleString('ru-Ru', {
-    second: undefined,
-    hour: 'numeric',
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    minute: '2-digit',
-  });
+  const modifiedDate = dateFormatting(publishedAt);
   return (
     <div className="card-wrapper">
       <div className="card">
