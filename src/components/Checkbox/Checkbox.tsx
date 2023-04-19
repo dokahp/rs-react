@@ -16,8 +16,9 @@ function Checkbox({ name, description }: Props) {
     <>
       <label
         htmlFor={description}
-        className="checkbox-label"
-        style={errors[name] ? { marginBottom: '5px' } : {}}
+        className={
+          errors[name] ? 'checkbox-label checkbox-error' : 'checkbox-label'
+        }
       >
         <input
           id={description}
