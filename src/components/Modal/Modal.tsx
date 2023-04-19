@@ -4,6 +4,7 @@ import './modal.css';
 import { Item } from '../CardsList/interfaces/cardslist.interface';
 import { VideoDetails } from './interfaces/videoDetail.interface';
 import { ChannelDetail } from './interfaces/channelDetail.interface';
+import intToString from '../../utility/intToString';
 
 interface ModalProps {
   toggl: (e: React.SyntheticEvent) => void;
@@ -24,32 +25,6 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
   const [channelDetailInfo, setChannelDetailInfo] = useState<ChannelDetail>();
   const [errorObj, setErrorObj] = useState({ code: '', message: '' });
   const [fullDescription, setFullDescription] = useState(false);
-
-  const intToString = (num: number | string) => {
-    const number = num.toString().replace(/[^0-9.]/g, '');
-    if (Number(number) < 1000) {
-      return number;
-    }
-    const si = [
-      { v: 1e3, s: 'K' },
-      { v: 1e6, s: 'M' },
-      { v: 1e9, s: 'B' },
-      { v: 1e12, s: 'T' },
-      { v: 1e15, s: 'P' },
-      { v: 1e18, s: 'E' },
-    ];
-    let index;
-    for (index = si.length - 1; index > 0; index -= 1) {
-      if (Number(num) >= si[index].v) {
-        break;
-      }
-    }
-    return (
-      (Number(num) / si[index].v)
-        .toFixed(2)
-        .replace(/\.0+$|(\.[0-9]*[1-9])0+$/, '$1') + si[index].s
-    );
-  };
 
   useEffect(() => {
     const getVideoDataById = async () => {
