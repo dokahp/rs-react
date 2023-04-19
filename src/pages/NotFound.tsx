@@ -1,40 +1,24 @@
 import React from 'react';
+import './styles/notfound.css';
 
 function NotFound() {
   return (
-    <div
-      style={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        height: '100%',
-        fontSize: '200%',
-        fontWeight: '700',
-        letterSpacing: '2px',
-      }}
-    >
+    <div className="not-found-wrapper">
       <div>
-        <h1
-          style={{ color: 'red', textAlign: 'center', letterSpacing: '12px' }}
-        >
-          404
-        </h1>
-        <div className="first-line-wrapper" style={{ display: 'flex' }}>
-          <div style={{ color: '#a6a6f3' }}>Error404</div>
-          <div style={{ color: '#fff' }}>&nbsp;(&nbsp;) &#123;</div>
+        <h1 className="not-found-heading">404</h1>
+        <div className="first-line-wrapper">
+          <div className="error404">Error404</div>
+          <div className="white-color">&nbsp;(&nbsp;) &#123;</div>
         </div>
-        <div className="seconds-line-wrapper" style={{ display: 'flex' }}>
-          <div style={{ color: 'red', marginLeft: '20px' }}>
-            {' '}
-            message &nbsp;{' '}
-          </div>
-          <div style={{ color: '#fff' }}>= &nbsp;</div>
-          <div style={{ color: '#fff' }}>&quot;</div>
-          <div style={{ color: 'green' }}>page not found</div>
-          <div style={{ color: '#fff' }}>&quot;</div>
-          <div style={{ color: '#fff' }}>;</div>
+        <div className="seconds-line-wrapper flex">
+          <div className="red-color"> message &nbsp; </div>
+          <div className="white-color">= &nbsp;</div>
+          <div className="white-color">&quot;</div>
+          <div className="green-color">page not found</div>
+          <div className="white-color">&quot;</div>
+          <div className="white-color">;</div>
         </div>
-        <div style={{ display: 'flex', color: '#fff' }}>&#125;;</div>
+        <div className="flex white-color">&#125;;</div>
       </div>
     </div>
   );

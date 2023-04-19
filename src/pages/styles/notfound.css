@@ -1,0 +1,40 @@
+.not-found-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: 200%;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.not-found-heading {
+  color: red;
+  text-align: center;
+  letter-spacing: 12px;
+}
+
+.first-line-wrapper {
+  display: flex;
+}
+
+.error404 {
+  color: #a6a6f3;
+}
+
+.white-color {
+  color: #fff;
+}
+
+.green-color {
+  color: green;
+}
+
+.flex {
+  display: flex;
+}
+
+.red-color {
+  color: red;
+  margin-left: 20px;
+}
