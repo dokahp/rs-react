@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
 import './modal.css';
 import { Item } from '../CardsList/interfaces/cardslist.interface';
-import { VideoDetails } from './interfaces/videoDetail.interface';
-import { ChannelDetail } from './interfaces/channelDetail.interface';
 import bigNumbersConverter from '../../utility/intToString';
+import videoDetailsAPI from '../../store/services/videoDetailsService';
+import channelDetailsAPI from '../../store/services/channelDetailsService';
 
 interface ModalProps {
   toggl: (e: React.SyntheticEvent) => void;
@@ -12,56 +11,16 @@ interface ModalProps {
   modalInfo: Item;
 }
 
-const CHANNELBASEURL =
-  'https://www.googleapis.com/youtube/v3/channels?part=id,snippet,statistics';
-
-const VIDEOBASEURL =
-  'https://www.googleapis.com/youtube/v3/videos?part=id,snippet,contentDetails,statistics';
-
 function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
   const { videoId } = modalInfo.id;
   const { channelId } = modalInfo.snippet;
-  const [detailedInfo, setDetailedInfo] = useState<VideoDetails>();
-  const [channelDetailInfo, setChannelDetailInfo] = useState<ChannelDetail>();
-  const [errorObj, setErrorObj] = useState({ code: '', message: '' });
   const [fullDescription, setFullDescription] = useState(false);
-
-  useEffect(() => {
-    const getVideoDataById = async () => {
-      const key = import.meta.env.VITE_YOUTUBE_API_KEY;
-      const URL = `${VIDEOBASEURL}&id=${videoId}&key=${key}`;
-      try {
-        const { data } = await axios.get(URL);
-        setDetailedInfo(data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setErrorObj({ code: error.code || '', message: error.message });
-        }
-      }
-    };
-
-    if (videoId && isModalOpen) {
-      getVideoDataById();
-    }
-  }, [videoId, isModalOpen]);
-
-  useEffect(() => {
-    const getChannelDataById = async () => {
-      const key = import.meta.env.VITE_YOUTUBE_API_KEY;
-      const URL = `${CHANNELBASEURL}&id=${channelId}&key=${key}`;
-      try {
-        const { data } = await axios.get(URL);
-        setChannelDetailInfo(data);
-      } catch (error) {
-        if (axios.isAxiosError(error)) {
-          setErrorObj({ code: error.code || '', message: error.message });
-        }
-      }
-    };
-    if (channelId && isModalOpen) {
-      getChannelDataById();
-    }
-  }, [channelId, isModalOpen]);
+  const videoDetails = videoDetailsAPI.useSearchQuery(videoId, {
+    skip: !isModalOpen,
+  });
+  const channelDetails = channelDetailsAPI.useSearchQuery(channelId, {
+    skip: !isModalOpen,
+  });
 
   if (!isModalOpen) return null;
   const { snippet } = modalInfo;
@@ -74,16 +33,16 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
     minute: '2-digit',
   });
   const subscribersCount = bigNumbersConverter(
-    channelDetailInfo?.items[0].statistics.subscriberCount || 0
+    channelDetails.data?.items[0].statistics.subscriberCount || 0
   );
   const viewsCount = bigNumbersConverter(
-    detailedInfo?.items[0].statistics.viewCount || 0
+    videoDetails.data?.items[0].statistics.viewCount || 0
   );
   const likesCount = bigNumbersConverter(
-    detailedInfo?.items[0].statistics.likeCount || 0
+    videoDetails.data?.items[0].statistics.likeCount || 0
   );
   const commentsCount = bigNumbersConverter(
-    detailedInfo?.items[0].statistics.commentCount || 0
+    videoDetails.data?.items[0].statistics.commentCount || 0
   );
   return (
     <>
@@ -105,7 +64,10 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
             <div className="modalChannelTitle">
               <img
                 className="channel-logo"
-                src={channelDetailInfo?.items[0].snippet.thumbnails.default.url}
+                src={
+                  channelDetails.data &&
+                  channelDetails.data.items[0].snippet.thumbnails.default.url
+                }
                 alt="channel-logo"
               />
               <div className="channel-title-wrapper">
@@ -126,15 +88,15 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
               </div>
 
               <div className="content-heading">Description:</div>
-              {fullDescription
-                ? detailedInfo?.items[0].snippet.description
+              {fullDescription && videoDetails.data
+                ? videoDetails.data.items[0].snippet.description
                 : snippet.description}
               <button
                 type="button"
                 className="view-full-btn"
                 onClick={() => setFullDescription((prev: boolean) => !prev)}
               >
-                {fullDescription && !errorObj.code ? 'Hide full' : 'View full'}
+                {fullDescription ? 'Hide full' : 'View full'}
               </button>
             </div>
           </div>
