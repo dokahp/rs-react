@@ -90,6 +90,26 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
 
   if (!isModalOpen) return null;
   const { snippet } = modalInfo;
+  const modifiedDate = new Date(snippet.publishedAt).toLocaleString('ru-Ru', {
+    second: undefined,
+    hour: 'numeric',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    minute: '2-digit',
+  });
+  const subscribersCount = intToString(
+    channelDetailInfo?.items[0].statistics.subscriberCount || 0
+  );
+  const viewsCount = intToString(
+    detailedInfo?.items[0].statistics.viewCount || 0
+  );
+  const likesCount = intToString(
+    detailedInfo?.items[0].statistics.likeCount || 0
+  );
+  const commentsCount = intToString(
+    detailedInfo?.items[0].statistics.commentCount || 0
+  );
   return (
     <>
       <div className="darkBG" role="presentation" onClick={toggl} />
@@ -118,42 +138,16 @@ function Modal({ toggl, isModalOpen, modalInfo }: ModalProps) {
                   {snippet.channelTitle}
                 </div>
                 <div className="channel-subscribers-count">
-                  {intToString(
-                    channelDetailInfo?.items[0].statistics.subscriberCount || 0
-                  )}
+                  {subscribersCount}
                 </div>
               </div>
             </div>
-            <div className="modalPublishedAt">
-              {new Date(snippet.publishedAt).toLocaleString('ru-Ru', {
-                second: undefined,
-                hour: 'numeric',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                minute: '2-digit',
-              })}
-            </div>
+            <div className="modalPublishedAt">{modifiedDate}</div>
             <div className="modalDescription">
               <div className="statistics">
-                <div className="views-count">
-                  👁{' '}
-                  {intToString(
-                    detailedInfo?.items[0].statistics.viewCount || 0
-                  )}
-                </div>
-                <div className="likes-count">
-                  👍{' '}
-                  {intToString(
-                    detailedInfo?.items[0].statistics.likeCount || 0
-                  )}
-                </div>
-                <div className="comments-count">
-                  💬{' '}
-                  {intToString(
-                    detailedInfo?.items[0].statistics.commentCount || 0
-                  )}
-                </div>
+                <div className="views-count">👁 {viewsCount}</div>
+                <div className="likes-count">👍 {likesCount}</div>
+                <div className="comments-count">💬 {commentsCount}</div>
               </div>
 
               <div className="content-heading">Description:</div>
