@@ -12,15 +12,7 @@ function Input({ labelText, name }: Props) {
   const { errors } = formState;
   return (
     <>
-      <label
-        htmlFor="inp"
-        className="inp"
-        style={
-          errors[name]
-            ? { marginBottom: '5px', borderBottom: '2px solid #d8000c' }
-            : {}
-        }
-      >
+      <label htmlFor="inp" className={errors[name] ? 'inp input-error' : 'inp'}>
         <input
           autoComplete="new-password"
           type="text"
