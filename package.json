@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "ts-node server.ts",
-    "build": "tsc && vite build",
+    "build": "npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client",
+    "build:server": "vite build --ssr src/entry-server.tsx --outDir dist/server",
     "preview": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage",
