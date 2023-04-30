@@ -17,6 +17,7 @@ function Home() {
 
   const [sendSearchRequest, { data, isLoading, isError }] =
     searchAPI.useLazySearchQuery();
+
   const searchInput: React.RefObject<HTMLInputElement> = createRef();
   const [modalInfo, setModalInfo] = useState<Item>(itemDefaultState);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -44,6 +45,9 @@ function Home() {
   };
 
   useEffect(() => {
+    if (!previousSearch) {
+      sendSearchRequest('', true);
+    }
     if (previousSearch) {
       sendSearchRequest(previousSearch, true);
     }

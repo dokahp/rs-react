@@ -15,4 +15,14 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['./src/setupTests.ts'],
   },
+  server: {
+    host: true,
+    port: 3001,
+    watch: {
+      ignored: ['**/coverage/**'],
+    },
+  },
+  build: {
+    sourcemap: true,
+  },
 });

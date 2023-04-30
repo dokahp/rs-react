@@ -5,6 +5,7 @@ import About from './pages/About';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound';
 import YourVideos from './pages/YourVideos';
+import './index.css';
 
 class App extends React.PureComponent {
   render() {
